@@ -1,0 +1,19 @@
+// Owned by: src/modules/user
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  name      String?
+  role      RoleEnum  @default(USER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("users")
+}
+
+enum RoleEnum {
+  ADMIN
+  USER
+}

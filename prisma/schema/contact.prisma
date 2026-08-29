@@ -1,0 +1,19 @@
+model Contact {
+  id      Int    @id @default(autoincrement())
+  name    String
+  email   String
+  subject String
+  message String
+  status ContactStatusEnum @default(UNREAD)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("contact")
+}
+
+enum ContactStatusEnum {
+  UNREAD
+  READ
+}
