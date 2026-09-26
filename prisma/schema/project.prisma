@@ -1,0 +1,27 @@
+// Owned by: src/modules/projects
+// `content` is the markdown body rendered on the project detail page —
+// it replaces the old structured `sections` array.
+
+model Project {
+  id          String    @id @default(cuid())
+  title       String
+  blurb       String?
+  summary     String?   @db.Text
+  content     String?   @db.Text
+  year        String?
+  kind        String?
+  status      String    @default("live")
+  stack       String[]
+  gallery     String[]
+  metrics     Json      @default("[]")
+  live        String?
+  repo        String?
+  coverHeight Int       @default(260)
+  coverAccent String    @default("#FF6B6B")
+  coverColor  String    @default("#141418")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  @@map("projects")
+}

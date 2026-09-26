@@ -1,0 +1,27 @@
+// Owned by: src/modules/resume
+// One canonical source for both the /resume page and the homepage
+// experience/skills sections — no duplicated content between them.
+
+enum ResumeSectionEnum {
+  EXPERIENCE
+  EDUCATION
+  CERTIFICATION
+  SKILL
+}
+
+model ResumeItem {
+  id           String            @id @default(cuid())
+  section      ResumeSectionEnum
+  title        String
+  organization String?
+  period       String?
+  location     String?
+  body         String?
+  points       String[]
+  order        Int               @default(0)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  deletedAt    DateTime?
+
+  @@map("resume_items")
+}

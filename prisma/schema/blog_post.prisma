@@ -1,0 +1,17 @@
+// Owned by: src/modules/blog
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  title       String
+  excerpt     String?
+  content     String?   @db.Text
+  tags        String[]
+  status      String    @default("draft") // draft | published
+  coverImage  String?
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  @@map("blog_posts")
+}

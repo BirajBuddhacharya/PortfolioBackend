@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "projects" ALTER COLUMN "live" DROP NOT NULL,
+ALTER COLUMN "repo" DROP NOT NULL;

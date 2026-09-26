@@ -1,0 +1,11 @@
+// Owned by: src/modules/contact
+
+model ContactLink {
+  id    String @id @default(cuid())
+  label String
+  value String
+  href  String
+  order Int    @default(0)
+
+  @@map("contact_links")
+}

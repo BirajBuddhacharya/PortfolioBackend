@@ -1,0 +1,14 @@
+// Owned by: src/modules/dashboard
+// Singleton row (id always 1) of seeded sample analytics — there is no
+// real pageview tracking; this only backs the admin dashboard chart/
+// top-pages/activity widgets with clearly-seeded demo numbers.
+
+model DashboardSnapshot {
+  id        Int      @id @default(1)
+  chartBars Json // number[]
+  topPages  Json // { path: string; views: number; pct: number }[]
+  activity  Json // { text: string; time: string }[]
+  updatedAt DateTime @updatedAt
+
+  @@map("dashboard_snapshot")
+}

@@ -5,7 +5,9 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
+  Req,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
@@ -16,6 +18,7 @@ import { RequireSwaggerPaginationSort } from '../../decorators/swagger-paginatio
 import { PaginationDto } from '../../common/dto/pagination.dto';
 import { ResponseDto } from '../../common/response/response.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateMeDto } from './dto/update-me.dto';
 
 @ApiTags('Users')
 @ApiBearerAuth()
@@ -28,6 +31,11 @@ export class UserController {
   @RequireSwaggerPaginationSort()
   async findAll(@PaginationSortQuery() pagination: PaginationDto) {
     return new ResponseDto(await this.userService.findAll(pagination));
+  }
+
+  @Patch('me')
+  async updateMe(@Req() req: any, @Body() dto: UpdateMeDto) {
+    return new ResponseDto(await this.userService.updateSelf(req.user.id, dto), 'Profile updated');
   }
 
   @Get(':id')

@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { UserBaseService } from './user.base.service';
 import { PaginationDto } from '../../common/dto/pagination.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateMeDto } from './dto/update-me.dto';
 
 @Injectable()
 export class UserService {
@@ -27,5 +28,9 @@ export class UserService {
   async softDelete(id: number) {
     await this.userBaseService.findOneOrFail({ id });
     return this.userBaseService.softDelete({ id });
+  }
+
+  updateSelf(id: number, dto: UpdateMeDto) {
+    return this.userBaseService.update({ id }, dto);
   }
 }

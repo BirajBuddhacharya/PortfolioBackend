@@ -12,6 +12,11 @@ import { ResponseInterceptor } from './interceptors/response.interceptor';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 import { ContactModule } from './modules/contact/contact.module';
+import { ProjectModule } from './modules/projects/project.module';
+import { ProfileModule } from './modules/profile/profile.module';
+import { ResumeModule } from './modules/resume/resume.module';
+import { BlogModule } from './modules/blog/blog.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 import appConfig from './config/app.config';
 
 @Module({
@@ -21,6 +26,11 @@ import appConfig from './config/app.config';
     AuthModule,
     UserModule,
     ContactModule,
+    ProjectModule,
+    ProfileModule,
+    ResumeModule,
+    BlogModule,
+    DashboardModule,
   ],
   controllers: [AppController],
   providers: [

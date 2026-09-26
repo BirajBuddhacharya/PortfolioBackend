@@ -1,0 +1,45 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import {
+  IsArray,
+  IsDateString,
+  IsIn,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+
+export class CreateBlogPostDto {
+  @ApiProperty()
+  @IsString()
+  title: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  excerpt?: string;
+
+  @ApiPropertyOptional({ description: 'Markdown body rendered on the post page' })
+  @IsOptional()
+  @IsString()
+  content?: string;
+
+  @ApiPropertyOptional({ type: [String] })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  tags?: string[];
+
+  @ApiPropertyOptional({ enum: ['draft', 'published'], default: 'draft' })
+  @IsOptional()
+  @IsIn(['draft', 'published'])
+  status?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  coverImage?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsDateString()
+  publishedAt?: string;
+}
