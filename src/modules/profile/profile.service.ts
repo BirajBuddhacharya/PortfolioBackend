@@ -10,6 +10,11 @@ const DEFAULTS = {
   facts: [] as { k: string; v: string }[],
   stats: [] as { value: string; label: string }[],
   ticker: [] as string[],
+  name: '',
+  avatarImage: null,
+  location: null,
+  ctaLabel: 'Hire me',
+  footerNote: null,
 };
 
 @Injectable()

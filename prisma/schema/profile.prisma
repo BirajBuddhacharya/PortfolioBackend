@@ -2,14 +2,22 @@
 // Singleton row (id always 1) holding homepage/about copy.
 
 model Profile {
-  id         Int      @id @default(1)
-  headline   String
-  coverImage String?
-  paragraphs Json // string[]
-  facts      Json // { k: string; v: string }[]
-  stats      Json // { value: string; label: string }[]
-  ticker     String[]
-  updatedAt  DateTime @updatedAt
+  id          Int      @id @default(1)
+  headline    String
+  coverImage  String?
+  paragraphs  Json // string[]
+  facts       Json // { k: string; v: string }[]
+  stats       Json // { value: string; label: string }[]
+  ticker      String[]
+
+  // Site identity — navbar/footer chrome, configured from admin Settings.
+  name        String   @default("")
+  avatarImage String?
+  location    String?
+  ctaLabel    String   @default("Hire me")
+  footerNote  String?
+
+  updatedAt   DateTime @updatedAt
 
   @@map("profile")
 }

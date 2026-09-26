@@ -55,8 +55,20 @@ async function seedProfile() {
         'Python', 'FastAPI', 'React', 'PyTorch', 'LangChain', 'PostgreSQL',
         'Docker', 'TypeScript', 'Next.js', 'TensorFlow',
       ],
+      name: 'Biraj Buddhacharya',
+      avatarImage: null,
+      location: 'Kathmandu, Nepal',
+      ctaLabel: 'Hire me',
+      footerNote: 'built from scratch',
     },
-    update: {},
+    // Site-identity fields are always ensured on re-seed (so this fix backfills an
+    // already-existing row); richer content fields above are seed-once only.
+    update: {
+      name: 'Biraj Buddhacharya',
+      location: 'Kathmandu, Nepal',
+      ctaLabel: 'Hire me',
+      footerNote: 'built from scratch',
+    },
   });
   console.log('Profile seeded');
 }

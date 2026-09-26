@@ -33,4 +33,29 @@ export class UpdateProfileDto {
   @IsArray()
   @IsString({ each: true })
   ticker?: string[];
+
+  @ApiPropertyOptional({ description: 'Displayed in the footer and as the navbar avatar fallback' })
+  @IsOptional()
+  @IsString()
+  name?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  avatarImage?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  location?: string;
+
+  @ApiPropertyOptional({ description: 'Navbar CTA button label' })
+  @IsOptional()
+  @IsString()
+  ctaLabel?: string;
+
+  @ApiPropertyOptional({ description: 'Footer note shown after the auto-computed copyright year' })
+  @IsOptional()
+  @IsString()
+  footerNote?: string;
 }
