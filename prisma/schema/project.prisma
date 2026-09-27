@@ -4,6 +4,7 @@
 
 model Project {
   id          String    @id @default(cuid())
+  slug        String    @unique
   title       String
   blurb       String?
   summary     String?   @db.Text

@@ -32,6 +32,11 @@ export class BlogService {
     return this.toResponse(post);
   }
 
+  async findBySlug(slug: string) {
+    const post = await this.blogPostBaseService.findOneOrFail({ slug });
+    return this.toResponse(post);
+  }
+
   async findPublishedById(id: string) {
     const post = await this.blogPostBaseService.findOneOrFail({ id });
     if (post.status !== 'published') throw new NotFoundException('Requested data not found');

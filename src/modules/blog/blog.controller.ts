@@ -46,10 +46,10 @@ export class BlogController {
     return new ResponseDto(await this.blogService.findPublished(pagination));
   }
 
-  @Get(':id')
+  @Get(':slug')
   @SkipAuthCheck()
-  async findOne(@Param('id') id: string) {
-    const post = await this.blogService.findById(id);
+  async findOne(@Param('slug') slug: string) {
+    const post = await this.blogService.findBySlug(slug);
     if (post.status !== 'published') throw new NotFoundException('Requested data not found');
     return new ResponseDto(post);
   }

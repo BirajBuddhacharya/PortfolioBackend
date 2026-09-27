@@ -16,6 +16,10 @@ export class ProjectService {
     return this.projectBaseService.findOneOrFail({ id });
   }
 
+  findBySlug(slug: string) {
+    return this.projectBaseService.findOneOrFail({ slug });
+  }
+
   create(dto: CreateProjectDto) {
     return this.projectBaseService.create({
       ...dto,

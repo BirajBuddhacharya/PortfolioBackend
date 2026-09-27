@@ -32,10 +32,10 @@ export class ProjectController {
     return new ResponseDto(await this.projectService.findAll(pagination));
   }
 
-  @Get(':id')
+  @Get(':slug')
   @SkipAuthCheck()
-  async findOne(@Param('id') id: string) {
-    return new ResponseDto(await this.projectService.findById(id));
+  async findOne(@Param('slug') slug: string) {
+    return new ResponseDto(await this.projectService.findBySlug(slug));
   }
 
   @Post()

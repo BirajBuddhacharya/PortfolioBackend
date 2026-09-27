@@ -2,6 +2,7 @@
 
 model BlogPost {
   id          String    @id @default(cuid())
+  slug        String    @unique
   title       String
   excerpt     String?
   content     String?   @db.Text

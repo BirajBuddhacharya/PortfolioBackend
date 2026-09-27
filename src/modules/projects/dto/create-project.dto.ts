@@ -14,6 +14,10 @@ export class CreateProjectDto {
   @IsString()
   title: string;
 
+  @ApiProperty()
+  @IsString()
+  slug: string;
+
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()

@@ -3,6 +3,7 @@ import { PrismaClient, RoleEnum, ResumeSectionEnum } from '../generated/prisma/c
 import { PrismaPg } from '@prisma/adapter-pg';
 import * as bcrypt from 'bcrypt';
 
+
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
@@ -141,6 +142,7 @@ async function seedBlogPosts() {
   await prisma.blogPost.createMany({
     data: [
       {
+        slug: 'load-balancing-strategies-in-go',
         title: 'Load balancing strategies in Go',
         excerpt: 'A walkthrough of round-robin, least-connections, and consistent hashing implemented from scratch in Go.',
         content: `Load balancing distributes traffic across a pool of backends. The strategy you pick decides how evenly that traffic lands — and how badly things degrade when one backend gets slow.
@@ -179,6 +181,7 @@ Start with round robin. Move to least connections when request costs diverge. Re
         publishedAt: new Date(now - 20 * day),
       },
       {
+        slug: 'e-governance-in-nepal-what-actually-ships',
         title: 'E-governance in Nepal: what actually ships',
         excerpt: 'Notes from building government-facing platforms in a low-bandwidth, high-friction environment.',
         content: `Government software has different constraints than consumer software. The users are not optional, the network is not fast, and the failure mode is someone not getting a service they are entitled to.
@@ -204,6 +207,7 @@ The projects that land share a pattern: narrow scope, one workflow end to end, a
         publishedAt: new Date(now - 14 * day),
       },
       {
+        slug: 'notes-on-intent-recognition-pipelines',
         title: 'Notes on intent recognition pipelines',
         excerpt: 'How we structured an intent classifier + slot filler for a client analytics platform.',
         content: `Intent recognition sits upstream of most conversational or query-driven systems. Get it wrong and every component downstream inherits the mistake.
@@ -237,6 +241,7 @@ The single biggest quality win was not a bigger model. It was tuning the confide
         publishedAt: new Date(now - 7 * day),
       },
       {
+        slug: 'soft-deletes-in-prisma-without-the-footguns',
         title: 'Soft deletes in Prisma without the footguns',
         excerpt: 'A pattern for consistent soft-delete filtering across every model in a NestJS + Prisma backend.',
         content: `Soft deletes are simple until every query has to remember the filter. Miss it once and deleted rows leak back into a list — usually in the one place nobody tested.
@@ -275,6 +280,7 @@ If nothing ever restores the record and no audit trail needs it, delete the row.
         publishedAt: new Date(now - 2 * day),
       },
       {
+        slug: 'draft-rethinking-the-admin-dashboard',
         title: 'Draft: rethinking the admin dashboard',
         excerpt: 'Work-in-progress notes on what an admin panel actually needs versus what it accumulates.',
         content: `Every admin panel starts simple and grows a junk drawer of toggles. Notes toward a rebuild.
@@ -304,6 +310,7 @@ async function seedProjects() {
   await prisma.project.createMany({
     data: [
       {
+        slug: 'riskvision',
         title: 'RiskVision',
         blurb: 'Predictive ML model with 80%+ accuracy for assessing stroke and heart disease risk from clinical data.',
         summary: 'RiskVision predicts stroke and heart disease risk using clinical features. The model was trained on public health datasets and achieves over 80% accuracy on held-out test data.',
@@ -344,6 +351,7 @@ Deployed as a FastAPI service with a React frontend. The model consistently outp
         gallery: ['Model architecture', 'ROC curves', 'Feature importance', 'UI screenshot'],
       },
       {
+        slug: 'syncbeats',
         title: 'SyncBeats',
         blurb: 'CLI tool that syncs YouTube playlists and local music libraries using yt-dlp with smart deduplication.',
         summary: 'SyncBeats is a command-line utility that keeps a local music folder in sync with YouTube playlists, handling duplicates and metadata tagging automatically.',
@@ -378,6 +386,7 @@ Used daily for personal music management. Open-sourced and picked up by roughly 
         gallery: ['CLI output', 'Config file', 'Before/after sync'],
       },
       {
+        slug: 'abc-books',
         title: 'ABC Books',
         blurb: 'Full-stack e-commerce platform with responsive design, cart system, and streamlined checkout flow.',
         summary: 'ABC Books is a full-featured online bookstore with product catalog, search, cart, and order management.',
@@ -410,6 +419,7 @@ Launched and used in production. Reduced order processing time by **60%** compar
         gallery: ['Home page', 'Product detail', 'Cart', 'Order history'],
       },
       {
+        slug: 'eventpulse',
         title: 'EventPulse',
         blurb: 'Real-time event management platform with QR-code check-in, ticket sales, and organizer dashboard.',
         summary: 'EventPulse handles the full lifecycle of ticketed events — from creation and sales to check-in on the day.',
@@ -442,6 +452,7 @@ Average check-in time dropped from 4 minutes to **under 30 seconds**. Zero overs
         gallery: ['Dashboard', 'Ticket page', 'QR scanner', 'Analytics'],
       },
       {
+        slug: 'tathyanaka',
         title: 'Tathyanaka',
         blurb: 'AI-powered analytics platform that turns raw data tables into natural-language insights and charts.',
         summary: 'Tathyanaka lets non-technical users query their data in plain English and receive structured charts and summaries.',
@@ -481,6 +492,7 @@ In production at DalloTech. Reduced data request turnaround from **2 days to und
         gallery: ['Query interface', 'Chart output', 'Schema browser', 'History'],
       },
       {
+        slug: 'quickhire',
         title: 'QuickHire',
         blurb: 'Job portal with AI-assisted resume screening and match-scoring for faster recruiter workflows.',
         summary: 'QuickHire speeds up recruiting by automatically ranking applicants against job descriptions using TF-IDF and semantic similarity.',

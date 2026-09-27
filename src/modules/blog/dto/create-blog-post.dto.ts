@@ -12,6 +12,10 @@ export class CreateBlogPostDto {
   @IsString()
   title: string;
 
+  @ApiProperty()
+  @IsString()
+  slug: string;
+
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
