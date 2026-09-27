@@ -12,7 +12,11 @@ async function bootstrap() {
   const appCfg = config.get('app', { infer: true })!;
 
   app.setGlobalPrefix('api/v1');
-  app.enableCors({ origin: appCfg.corsOrigins });
+  const origins = appCfg.corsOrigins;
+  app.enableCors({
+    origin: origins.length === 1 && origins[0] === '*' ? '*' : origins,
+    credentials: true,
+  });
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ limit: '50mb', extended: true }));
 
