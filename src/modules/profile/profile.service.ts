@@ -15,6 +15,7 @@ const DEFAULTS = {
   location: null,
   ctaLabel: 'Hire me',
   footerNote: null,
+  resumePdfUrl: null,
 };
 
 @Injectable()
@@ -32,7 +33,7 @@ export class ProfileService {
   updateProfile(dto: UpdateProfileDto) {
     return this.prisma.profile.update({
       where: { id: 1 },
-      data: dto as Prisma.ProfileUpdateInput,
+      data: { ...dto } as Prisma.ProfileUpdateInput,
     });
   }
 }

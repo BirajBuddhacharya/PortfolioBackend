@@ -1,0 +1,18 @@
+// Owned by: src/modules/gallery
+// Tracks every file uploaded through the admin upload endpoint.
+
+model Gallery {
+  id        String   @id @default(cuid())
+  publicId  String   @unique
+  url       String
+  format    String
+  type      String   @default("image") // "image" | "pdf"
+  alt       String?
+  folder    String?
+  bytes     Int?
+  width     Int?
+  height    Int?
+  createdAt DateTime @default(now())
+
+  @@map("gallery")
+}

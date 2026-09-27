@@ -17,6 +17,8 @@ import { ProfileModule } from './modules/profile/profile.module';
 import { ResumeModule } from './modules/resume/resume.module';
 import { BlogModule } from './modules/blog/blog.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { UploadModule } from './modules/upload/upload.module';
+import { GalleryModule } from './modules/gallery/gallery.module';
 import appConfig from './config/app.config';
 
 @Module({
@@ -31,6 +33,8 @@ import appConfig from './config/app.config';
     ResumeModule,
     BlogModule,
     DashboardModule,
+    UploadModule,
+    GalleryModule,
   ],
   controllers: [AppController],
   providers: [

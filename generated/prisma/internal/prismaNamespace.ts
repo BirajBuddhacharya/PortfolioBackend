@@ -401,6 +401,7 @@ export const ModelName = {
   Contact: 'Contact',
   ContactLink: 'ContactLink',
   DashboardSnapshot: 'DashboardSnapshot',
+  Gallery: 'Gallery',
   Profile: 'Profile',
   Project: 'Project',
   ResumeItem: 'ResumeItem',
@@ -420,7 +421,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "blogPost" | "contact" | "contactLink" | "dashboardSnapshot" | "profile" | "project" | "resumeItem" | "user"
+    modelProps: "blogPost" | "contact" | "contactLink" | "dashboardSnapshot" | "gallery" | "profile" | "project" | "resumeItem" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -717,6 +718,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.DashboardSnapshotCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.DashboardSnapshotCountAggregateOutputType> | number
+        }
+      }
+    }
+    Gallery: {
+      payload: Prisma.$GalleryPayload<ExtArgs>
+      fields: Prisma.GalleryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GalleryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GalleryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GalleryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GalleryPayload>
+        }
+        findFirst: {
+          args: Prisma.GalleryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GalleryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GalleryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GalleryPayload>
+        }
+        findMany: {
+          args: Prisma.GalleryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GalleryPayload>[]
+        }
+        create: {
+          args: Prisma.GalleryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GalleryPayload>
+        }
+        createMany: {
+          args: Prisma.GalleryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GalleryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GalleryPayload>[]
+        }
+        delete: {
+          args: Prisma.GalleryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GalleryPayload>
+        }
+        update: {
+          args: Prisma.GalleryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GalleryPayload>
+        }
+        deleteMany: {
+          args: Prisma.GalleryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GalleryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GalleryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GalleryPayload>[]
+        }
+        upsert: {
+          args: Prisma.GalleryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GalleryPayload>
+        }
+        aggregate: {
+          args: Prisma.GalleryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGallery>
+        }
+        groupBy: {
+          args: Prisma.GalleryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GalleryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GalleryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GalleryCountAggregateOutputType> | number
         }
       }
     }
@@ -1110,6 +1185,23 @@ export const DashboardSnapshotScalarFieldEnum = {
 export type DashboardSnapshotScalarFieldEnum = (typeof DashboardSnapshotScalarFieldEnum)[keyof typeof DashboardSnapshotScalarFieldEnum]
 
 
+export const GalleryScalarFieldEnum = {
+  id: 'id',
+  publicId: 'publicId',
+  url: 'url',
+  format: 'format',
+  type: 'type',
+  alt: 'alt',
+  folder: 'folder',
+  bytes: 'bytes',
+  width: 'width',
+  height: 'height',
+  createdAt: 'createdAt'
+} as const
+
+export type GalleryScalarFieldEnum = (typeof GalleryScalarFieldEnum)[keyof typeof GalleryScalarFieldEnum]
+
+
 export const ProfileScalarFieldEnum = {
   id: 'id',
   headline: 'headline',
@@ -1123,6 +1215,7 @@ export const ProfileScalarFieldEnum = {
   location: 'location',
   ctaLabel: 'ctaLabel',
   footerNote: 'footerNote',
+  resumePdfUrl: 'resumePdfUrl',
   updatedAt: 'updatedAt'
 } as const
 
@@ -1499,6 +1592,7 @@ export type GlobalOmitConfig = {
   contact?: Prisma.ContactOmit
   contactLink?: Prisma.ContactLinkOmit
   dashboardSnapshot?: Prisma.DashboardSnapshotOmit
+  gallery?: Prisma.GalleryOmit
   profile?: Prisma.ProfileOmit
   project?: Prisma.ProjectOmit
   resumeItem?: Prisma.ResumeItemOmit

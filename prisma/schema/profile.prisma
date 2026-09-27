@@ -16,6 +16,7 @@ model Profile {
   location    String?
   ctaLabel    String   @default("Hire me")
   footerNote  String?
+  resumePdfUrl String?
 
   updatedAt   DateTime @updatedAt
 

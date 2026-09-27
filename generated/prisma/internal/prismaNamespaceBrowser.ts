@@ -55,6 +55,7 @@ export const ModelName = {
   Contact: 'Contact',
   ContactLink: 'ContactLink',
   DashboardSnapshot: 'DashboardSnapshot',
+  Gallery: 'Gallery',
   Profile: 'Profile',
   Project: 'Project',
   ResumeItem: 'ResumeItem',
@@ -132,6 +133,23 @@ export const DashboardSnapshotScalarFieldEnum = {
 export type DashboardSnapshotScalarFieldEnum = (typeof DashboardSnapshotScalarFieldEnum)[keyof typeof DashboardSnapshotScalarFieldEnum]
 
 
+export const GalleryScalarFieldEnum = {
+  id: 'id',
+  publicId: 'publicId',
+  url: 'url',
+  format: 'format',
+  type: 'type',
+  alt: 'alt',
+  folder: 'folder',
+  bytes: 'bytes',
+  width: 'width',
+  height: 'height',
+  createdAt: 'createdAt'
+} as const
+
+export type GalleryScalarFieldEnum = (typeof GalleryScalarFieldEnum)[keyof typeof GalleryScalarFieldEnum]
+
+
 export const ProfileScalarFieldEnum = {
   id: 'id',
   headline: 'headline',
@@ -145,6 +163,7 @@ export const ProfileScalarFieldEnum = {
   location: 'location',
   ctaLabel: 'ctaLabel',
   footerNote: 'footerNote',
+  resumePdfUrl: 'resumePdfUrl',
   updatedAt: 'updatedAt'
 } as const
 

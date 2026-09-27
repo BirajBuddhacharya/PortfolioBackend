@@ -1,4 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import { IsArray, IsOptional, IsString } from 'class-validator';
 
 export class UpdateProfileDto {
@@ -21,11 +22,13 @@ export class UpdateProfileDto {
   @ApiPropertyOptional({ description: '{ k: string; v: string }[]' })
   @IsOptional()
   @IsArray()
+  @Type(() => Object)
   facts?: { k: string; v: string }[];
 
   @ApiPropertyOptional({ description: '{ value: string; label: string }[]' })
   @IsOptional()
   @IsArray()
+  @Type(() => Object)
   stats?: { value: string; label: string }[];
 
   @ApiPropertyOptional({ type: [String] })
@@ -58,4 +61,9 @@ export class UpdateProfileDto {
   @IsOptional()
   @IsString()
   footerNote?: string;
+
+  @ApiPropertyOptional({ description: 'Cloudinary URL of uploaded resume PDF' })
+  @IsOptional()
+  @IsString()
+  resumePdfUrl?: string;
 }

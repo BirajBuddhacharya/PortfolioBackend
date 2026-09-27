@@ -60,6 +60,11 @@ export type ContactLink = Prisma.ContactLinkModel
  */
 export type DashboardSnapshot = Prisma.DashboardSnapshotModel
 /**
+ * Model Gallery
+ * 
+ */
+export type Gallery = Prisma.GalleryModel
+/**
  * Model Profile
  * 
  */
