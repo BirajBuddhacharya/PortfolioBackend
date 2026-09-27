@@ -7,6 +7,7 @@ import { AllConfig } from 'src/config/config.type';
 const SITEVERIFY_URL =
   'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
+// small
 @Injectable()
 export class ContactService {
   constructor(
