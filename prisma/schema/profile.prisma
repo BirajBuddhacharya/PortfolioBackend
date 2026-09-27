@@ -16,7 +16,8 @@ model Profile {
   location    String?
   ctaLabel    String   @default("Hire me")
   footerNote  String?
-  resumePdfUrl String?
+  resumePdfUrl        String?
+  emailNotifications  Boolean  @default(true)
 
   updatedAt   DateTime @updatedAt
 

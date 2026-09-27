@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsArray, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class UpdateProfileDto {
   @ApiPropertyOptional()
@@ -66,4 +66,9 @@ export class UpdateProfileDto {
   @IsOptional()
   @IsString()
   resumePdfUrl?: string;
+
+  @ApiPropertyOptional({ description: 'Send email when a contact message arrives' })
+  @IsOptional()
+  @IsBoolean()
+  emailNotifications?: boolean;
 }

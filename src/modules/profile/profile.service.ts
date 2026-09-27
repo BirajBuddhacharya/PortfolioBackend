@@ -16,6 +16,7 @@ const DEFAULTS = {
   ctaLabel: 'Hire me',
   footerNote: null,
   resumePdfUrl: null,
+  emailNotifications: true,
 };
 
 @Injectable()

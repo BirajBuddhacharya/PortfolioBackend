@@ -18,4 +18,6 @@ export default registerAs('app', () => ({
   swaggerPassword: process.env.SWAGGER_PASSWORD ?? 'admin',
   corsOrigins: process.env.CORS_ORIGINS?.split(',') ?? ['*'],
   turnstileSecretKey: process.env.TURNSTILE_SECRET_KEY ?? '',
+  resendApiKey: process.env.RESEND_API_KEY ?? '',
+  contactEmail: process.env.CONTACT_EMAIL ?? '',
 }));
