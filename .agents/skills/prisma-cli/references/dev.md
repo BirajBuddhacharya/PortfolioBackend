@@ -122,7 +122,7 @@ export default defineConfig({
   },
   datasource: {
     // Local Prisma Postgres URL (from prisma dev output)
-    url: env('DATABASE_URL'),
+    url: env('POSTGRES_URL'),
   },
 })
 ```
@@ -154,4 +154,4 @@ When ready for production, switch to Prisma Postgres cloud:
 prisma init --db
 ```
 
-Update your `DATABASE_URL` to the cloud connection string.
+Update your `POSTGRES_URL` to the cloud connection string.

@@ -32,7 +32,7 @@ import { defineConfig, env } from 'prisma/config'
 export default defineConfig({
   schema: 'prisma/schema.prisma',
   datasource: {
-    url: env('DATABASE_URL'),
+    url: env('POSTGRES_URL'),
   },
 })
 ```
@@ -42,7 +42,7 @@ export default defineConfig({
 In `.env`:
 
 ```env
-DATABASE_URL="mysql://user:password@localhost:3306/mydb"
+POSTGRES_URL="mysql://user:password@localhost:3306/mydb"
 ```
 
 ### Connection String Format
@@ -92,7 +92,7 @@ If you need the MariaDB driver's text protocol instead of the default binary `ex
 import { PrismaClient } from '../generated/client'
 import { PrismaMariaDb } from '@prisma/adapter-mariadb'
 
-const adapter = new PrismaMariaDb(process.env.DATABASE_URL!, {
+const adapter = new PrismaMariaDb(process.env.POSTGRES_URL!, {
   useTextProtocol: true,
 })
 
@@ -119,7 +119,7 @@ datasource db {
 ### "Too many connections"
 MySQL has a connection limit. Adjust connection pool size in URL:
 ```env
-DATABASE_URL="mysql://...?connection_limit=5"
+POSTGRES_URL="mysql://...?connection_limit=5"
 ```
 
 ### JSON Support

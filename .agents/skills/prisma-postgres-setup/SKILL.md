@@ -138,7 +138,7 @@ All five packages are required:
 2. Write the direct connection string to `.env`. **Append** to the file if it already exists — do not overwrite existing entries:
 
 ```
-DATABASE_URL="<direct-connection-string>"
+POSTGRES_URL="<direct-connection-string>"
 ```
 
 3. Verify `.gitignore` includes `.env`. Create `.gitignore` if it does not exist. Warn the user if `.env` is not gitignored.
@@ -166,7 +166,7 @@ export default defineConfig({
   earlyAccess: true,
   schema: path.join(import.meta.dirname, 'prisma', 'schema.prisma'),
   datasource: {
-    url: process.env.DATABASE_URL!,
+    url: process.env.POSTGRES_URL!,
   },
 })
 ```
@@ -206,7 +206,7 @@ import pg from 'pg'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from './generated/prisma/client.js'
 
-const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL })
+const pool = new pg.Pool({ connectionString: process.env.POSTGRES_URL })
 const adapter = new PrismaPg(pool)
 const prisma = new PrismaClient({ adapter })
 
@@ -225,7 +225,7 @@ npx tsx test-connection.ts
 
 **Prisma 7 client instantiation rules:**
 - Import from `./generated/prisma/client.js` (not `./generated/prisma`)
-- Create a `pg.Pool` with the `DATABASE_URL` connection string
+- Create a `pg.Pool` with the `POSTGRES_URL` connection string
 - Wrap it in a `PrismaPg` adapter
 - Pass `{ adapter }` to the `PrismaClient` constructor
 - Do **not** use `datasourceUrl` — that option does not exist in Prisma 7

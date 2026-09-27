@@ -168,7 +168,7 @@ export default defineConfig({
     path: 'prisma/migrations',
   },
   datasource: {
-    url: env('DATABASE_URL'),
+    url: env('POSTGRES_URL'),
   },
 })
 ```
@@ -209,7 +209,7 @@ import { PrismaClient } from '../generated/prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.POSTGRES_URL
 })
 
 const prisma = new PrismaClient({ adapter })

@@ -45,7 +45,7 @@ prisma migrate deploy
 - name: Apply migrations
   run: npx prisma migrate deploy
   env:
-    DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
 ```
 
 ### Docker deployment
@@ -114,7 +114,7 @@ import { defineConfig, env } from 'prisma/config'
 
 export default defineConfig({
   datasource: {
-    url: env('DATABASE_URL'),
+    url: env('POSTGRES_URL'),
   },
 })
 ```

@@ -44,8 +44,8 @@ Deploy a prebuilt artifact:
 import { ComputeClient, PreBuilt } from "@prisma/compute-sdk"
 
 const compute = new ComputeClient(apiClient)
-const databaseUrl = process.env.DATABASE_URL
-if (!databaseUrl) throw new Error("DATABASE_URL is required")
+const databaseUrl = process.env.POSTGRES_URL
+if (!databaseUrl) throw new Error("POSTGRES_URL is required")
 
 const result = await compute.deploy({
   strategy: new PreBuilt({
@@ -55,7 +55,7 @@ const result = await compute.deploy({
   projectId: "proj_abc",
   appName: "my-app",
   region: "us-east-1",
-  envVars: { DATABASE_URL: databaseUrl },
+  envVars: { POSTGRES_URL: databaseUrl },
   portMapping: { http: 3000 },
 })
 

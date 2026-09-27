@@ -36,7 +36,7 @@ Re-run `prisma generate` after every schema change to keep the client in sync.
 import { PrismaClient } from '../generated/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+const adapter = new PrismaPg({ connectionString: process.env.POSTGRES_URL })
 const prisma = new PrismaClient({ adapter })
 ```
 

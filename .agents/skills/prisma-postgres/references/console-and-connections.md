@@ -39,20 +39,20 @@ For CI or non-interactive usage:
 prisma postgres link --api-key "<your-api-key>" --database "db_..."
 ```
 
-This command updates or creates `.env` with `DATABASE_URL`. If the project is already linked, use `--force` to re-link. After linking, run `prisma generate`, then `prisma migrate dev` if you need to apply the schema.
+This command updates or creates `.env` with `POSTGRES_URL`. If the project is already linked, use `--force` to re-link. After linking, run `prisma generate`, then `prisma migrate dev` if you need to apply the schema.
 
 ## Connection setup
 
 For direct PostgreSQL tools and drivers:
 
 - Generate/copy direct connection credentials from the project connection UI.
-- Use the resulting PostgreSQL URL as `DATABASE_URL` for `pg` and `@prisma/adapter-pg`.
+- Use the resulting PostgreSQL URL as `POSTGRES_URL` for `pg` and `@prisma/adapter-pg`.
 - For Prisma Postgres direct TCP, include `sslmode=require`.
 
 Typical direct TCP format:
 
 ```env
-DATABASE_URL="postgres://identifier:key@db.prisma.io:5432/postgres?sslmode=require"
+POSTGRES_URL="postgres://identifier:key@db.prisma.io:5432/postgres?sslmode=require"
 ```
 
 Management API connection responses expose both `endpoints.direct` (`db.prisma.io:5432`) and `endpoints.pooled` (`pooled.db.prisma.io:5432`); prefer those fields over the deprecated flat `connectionString`. Connection secrets are shown once at creation (one-time view); store them immediately.
