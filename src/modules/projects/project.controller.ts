@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ProjectService } from './project.service';
@@ -28,8 +29,12 @@ export class ProjectController {
   @Get()
   @SkipAuthCheck()
   @RequireSwaggerPaginationSort()
-  async findAll(@PaginationSortQuery() pagination: PaginationDto) {
-    return new ResponseDto(await this.projectService.findAll(pagination));
+  async findAll(
+    @PaginationSortQuery() pagination: PaginationDto,
+    @Query('search') search?: string,
+    @Query('status') status?: string,
+  ) {
+    return new ResponseDto(await this.projectService.findAll(pagination, search, status));
   }
 
   @Get(':slug')

@@ -3,13 +3,18 @@ import { ProjectBaseService } from './project.base.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { PaginationDto } from '../../common/dto/pagination.dto';
+import { Prisma } from './entity/project.entity';
 
 @Injectable()
 export class ProjectService {
   constructor(private projectBaseService: ProjectBaseService) {}
 
-  findAll(pagination: PaginationDto) {
-    return this.projectBaseService.find({}, { ...pagination, sort: { year: 'desc' } });
+  findAll(pagination: PaginationDto, search?: string, status?: string) {
+    const where: Prisma.ProjectWhereInput = {
+      ...(status ? { status } : {}),
+      ...(search ? { title: { contains: search, mode: 'insensitive' } } : {}),
+    };
+    return this.projectBaseService.find(where, { ...pagination, sort: { year: 'desc' } });
   }
 
   findById(id: string) {

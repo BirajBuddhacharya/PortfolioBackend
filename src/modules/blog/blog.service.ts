@@ -3,7 +3,7 @@ import { BlogPostBaseService } from './blog-post.base.service';
 import { CreateBlogPostDto } from './dto/create-blog-post.dto';
 import { UpdateBlogPostDto } from './dto/update-blog-post.dto';
 import { PaginationDto } from '../../common/dto/pagination.dto';
-import { BlogPost } from './entity/blog-post.entity';
+import { BlogPost, Prisma } from './entity/blog-post.entity';
 
 @Injectable()
 export class BlogService {
@@ -22,8 +22,12 @@ export class BlogService {
     return { result: result.map((p) => this.toResponse(p)), total };
   }
 
-  async findAllAdmin(pagination: PaginationDto) {
-    const { result, total } = await this.blogPostBaseService.find({}, pagination);
+  async findAllAdmin(pagination: PaginationDto, search?: string, status?: string) {
+    const where: Prisma.BlogPostWhereInput = {
+      ...(status ? { status } : {}),
+      ...(search ? { title: { contains: search, mode: 'insensitive' } } : {}),
+    };
+    const { result, total } = await this.blogPostBaseService.find(where, pagination);
     return { result: result.map((p) => this.toResponse(p)), total };
   }
 

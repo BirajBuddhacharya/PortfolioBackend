@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { BlogService } from './blog.service';
@@ -35,8 +36,12 @@ export class BlogController {
   @Get('admin')
   @SetRoles(RoleEnum.ADMIN)
   @RequireSwaggerPaginationSort()
-  async findAllAdmin(@PaginationSortQuery() pagination: PaginationDto) {
-    return new ResponseDto(await this.blogService.findAllAdmin(pagination));
+  async findAllAdmin(
+    @PaginationSortQuery() pagination: PaginationDto,
+    @Query('search') search?: string,
+    @Query('status') status?: string,
+  ) {
+    return new ResponseDto(await this.blogService.findAllAdmin(pagination, search, status));
   }
 
   @Get()
