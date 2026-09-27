@@ -9,7 +9,12 @@ export class PrismaService
 {
   constructor() {
     const adapter = new PrismaPg({
-      connectionString: process.env.DATABASE_URL,
+      host: process.env.POSTGRES_HOST,
+      user: process.env.POSTGRES_USER,
+      database: process.env.POSTGRES_DATABASE,
+      port: parseInt(process.env.POSTGRES_PORT ?? '5432', 10),
+      password: process.env.POSTGRES_PASSWORD,
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
     });
     super({ adapter });
   }
