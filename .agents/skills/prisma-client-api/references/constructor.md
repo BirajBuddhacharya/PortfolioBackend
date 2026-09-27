@@ -9,7 +9,7 @@ import { PrismaClient } from '../generated/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.POSTGRES_URL
 })
 
 const prisma = new PrismaClient({ adapter })
@@ -25,7 +25,7 @@ Driver adapter instance:
 import { PrismaPg } from '@prisma/adapter-pg'
 
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.POSTGRES_URL
 })
 
 const prisma = new PrismaClient({ adapter })
@@ -37,7 +37,7 @@ const prisma = new PrismaClient({ adapter })
 import { withAccelerate } from '@prisma/extension-accelerate'
 
 const prisma = new PrismaClient({
-  accelerateUrl: process.env.DATABASE_URL,  // prisma:// URL
+  accelerateUrl: process.env.POSTGRES_URL,  // prisma:// URL
 }).$extends(withAccelerate())
 ```
 
@@ -101,7 +101,7 @@ import { queryTags, withQueryTags } from '@prisma/sqlcommenter-query-tags'
 import { traceContext } from '@prisma/sqlcommenter-trace-context'
 
 const prisma = new PrismaClient({
-  adapter: new PrismaPg(process.env.DATABASE_URL!),
+  adapter: new PrismaPg(process.env.POSTGRES_URL!),
   comments: [prismaQueryInsights(), traceContext(), queryTags()],
 })
 
@@ -142,7 +142,7 @@ const globalForPrisma = globalThis as unknown as {
 
 function createPrismaClient() {
   const adapter = new PrismaPg({
-    connectionString: process.env.DATABASE_URL!
+    connectionString: process.env.POSTGRES_URL!
   })
   return new PrismaClient({ adapter })
 }
@@ -162,7 +162,7 @@ import { PrismaClient } from '@/generated/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 
 const createAdapter = () => new PrismaPg({
-  connectionString: process.env.DATABASE_URL!
+  connectionString: process.env.POSTGRES_URL!
 })
 
 const prismaClientSingleton = () => {

@@ -9,7 +9,7 @@ export class PrismaService
 {
   constructor() {
     const adapter = new PrismaPg({
-      connectionString: process.env.DATABASE_URL,
+      connectionString: process.env.POSTGRES_URL,
     });
     super({ adapter });
   }

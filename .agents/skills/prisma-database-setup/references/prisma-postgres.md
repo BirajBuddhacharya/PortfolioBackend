@@ -26,7 +26,7 @@ For Prisma CLI flows and Accelerate-style usage, you may see a `prisma+postgres:
 For Prisma Client with a driver adapter in Node.js, prefer the direct TCP connection string from the Prisma Postgres dashboard:
 
 ```env
-DATABASE_URL="postgres://identifier:key@db.prisma.io:5432/postgres?sslmode=require"
+POSTGRES_URL="postgres://identifier:key@db.prisma.io:5432/postgres?sslmode=require"
 ```
 
 ## 1. Schema Configuration
@@ -54,7 +54,7 @@ import { defineConfig, env } from 'prisma/config'
 export default defineConfig({
   schema: 'prisma/schema.prisma',
   datasource: {
-    url: env('DATABASE_URL'),
+    url: env('POSTGRES_URL'),
   },
 })
 ```
@@ -76,14 +76,14 @@ Use a driver adapter for Prisma Postgres in the standard SQL workflow.
    import { PrismaClient } from '../generated/client'
    import { PrismaPg } from '@prisma/adapter-pg'
 
-   const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   const adapter = new PrismaPg({ connectionString: process.env.POSTGRES_URL })
    const prisma = new PrismaClient({ adapter })
    ```
 
 `PrismaPg` also accepts the connection string directly:
 
 ```typescript
-const adapter = new PrismaPg(process.env.DATABASE_URL!)
+const adapter = new PrismaPg(process.env.POSTGRES_URL!)
 const prisma = new PrismaClient({ adapter })
 ```
 
@@ -92,7 +92,7 @@ For PostgreSQL prepared statement naming, pass adapter options as the second arg
 ```typescript
 import { createHash } from 'node:crypto'
 
-const adapter = new PrismaPg(process.env.DATABASE_URL!, {
+const adapter = new PrismaPg(process.env.POSTGRES_URL!, {
   statementNameGenerator: ({ sql }) =>
     `prisma_${createHash('sha1').update(sql).digest('hex').slice(0, 16)}`,
 })

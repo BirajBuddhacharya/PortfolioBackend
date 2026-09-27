@@ -56,7 +56,7 @@ Your configuration shape depends on the provider and Prisma major version:
 
 1. **All providers** use **`prisma/schema.prisma`**.
 2. **Prisma 7 SQL setups** typically use **`prisma.config.ts`** for datasource URLs.
-3. **MongoDB projects should stay on Prisma 6.x**, keep `url = env("DATABASE_URL")` in the schema, and continue using the classic MongoDB setup.
+3. **MongoDB projects should stay on Prisma 6.x**, keep `url = env("POSTGRES_URL")` in the schema, and continue using the classic MongoDB setup.
 
 ## Driver Adapters
 
@@ -82,7 +82,7 @@ import 'dotenv/config'
 import { PrismaClient } from '../generated/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+const adapter = new PrismaPg({ connectionString: process.env.POSTGRES_URL })
 const prisma = new PrismaClient({ adapter })
 ```
 
@@ -114,7 +114,7 @@ Prisma Client must be installed and generated for any database.
    import { PrismaClient } from '../generated/client'
    import { PrismaPg } from '@prisma/adapter-pg'
 
-   const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   const adapter = new PrismaPg({ connectionString: process.env.POSTGRES_URL })
    const prisma = new PrismaClient({ adapter })
    ```
 
@@ -162,7 +162,7 @@ generator client {
 ```prisma
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = env("POSTGRES_URL")
 }
 
 generator client {

@@ -32,7 +32,7 @@ import { defineConfig, env } from 'prisma/config'
 export default defineConfig({
   schema: 'prisma/schema.prisma',
   datasource: {
-    url: env('DATABASE_URL'),
+    url: env('POSTGRES_URL'),
   },
 })
 ```
@@ -42,7 +42,7 @@ export default defineConfig({
 In `.env`:
 
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/mydb?schema=public"
+POSTGRES_URL="postgresql://user:password@localhost:5432/mydb?schema=public"
 ```
 
 ### Connection String Format
@@ -73,7 +73,7 @@ Use a driver adapter for the standard SQL workflow.
    import { PrismaClient } from '../generated/client'
    import { PrismaPg } from '@prisma/adapter-pg'
 
-   const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   const adapter = new PrismaPg({ connectionString: process.env.POSTGRES_URL })
    const prisma = new PrismaClient({ adapter })
    ```
 
