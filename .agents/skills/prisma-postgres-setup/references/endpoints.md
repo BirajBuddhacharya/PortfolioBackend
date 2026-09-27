@@ -108,7 +108,7 @@ POST /v1/projects
 
 Key field to extract:
 
-- `data.database.connections[0].endpoints.direct.connectionString` → use as `POSTGRES_URL`
+- `data.database.connections[0].endpoints.direct.connectionString` → use as `DATABASE_URL`
 
 The response also includes `pooled` and `accelerate` endpoints — ignore these for new projects. The direct connection string is all you need.
 
@@ -196,7 +196,7 @@ Creates a new named connection string for a database. Use for per-developer or p
 }
 ```
 
-Extract: `data.endpoints.direct.connectionString` → use as `POSTGRES_URL`.
+Extract: `data.endpoints.direct.connectionString` → use as `DATABASE_URL`.
 
 ## Delete database
 

@@ -68,7 +68,7 @@ export interface PrismaClientConstructor {
    * @example
    * ```
    * const prisma = new PrismaClient({
-   *   adapter: new PrismaPg({ connectionString: process.env.POSTGRES_URL })
+   *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
    * })
    * // Fetch zero or more BlogPosts
    * const blogPosts = await prisma.blogPost.findMany()
@@ -92,7 +92,7 @@ export interface PrismaClientConstructor {
  * @example
  * ```
  * const prisma = new PrismaClient({
- *   adapter: new PrismaPg({ connectionString: process.env.POSTGRES_URL })
+ *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
  * // Fetch zero or more BlogPosts
  * const blogPosts = await prisma.blogPost.findMany()

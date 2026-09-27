@@ -184,17 +184,17 @@ bunx @prisma/cli@latest app deploy --create-project <name> --yes
 
 Do not rely on `--yes` alone to choose Project scope. `--project`, `--create-project`, and `PRISMA_PROJECT_ID` are mutually exclusive.
 
-## Missing or Placeholder `POSTGRES_URL`
+## Missing or Placeholder `DATABASE_URL`
 
 Symptoms:
 
-- Prisma Client throws `POSTGRES_URL is required`
+- Prisma Client throws `DATABASE_URL is required`
 - migration scripts fail immediately
 - deploy runs but app fails on database access
 
 Fix:
 
-1. Put a real production-ready `POSTGRES_URL` in `.env` or project env.
+1. Put a real production-ready `DATABASE_URL` in `.env` or project env.
 2. Run `prisma generate`.
 3. Run migrations with the project's `db:migrate` or production migration command.
 4. Redeploy with `--env .env` or project env configured.
@@ -213,7 +213,7 @@ Never deploy `postgresql://USER:PASSWORD@HOST:PORT/DATABASE` placeholder values.
 Symptoms:
 
 - preview deploy reads production env
-- branch deploy cannot find `POSTGRES_URL`
+- branch deploy cannot find `DATABASE_URL`
 - app is deployed to the expected branch but points at the wrong database
 - logs are inspected for the current app while the failing URL belongs to a different deployment id
 
@@ -241,7 +241,7 @@ Fix:
 
 Symptoms:
 
-- deploy runs but the app cannot find `POSTGRES_URL`
+- deploy runs but the app cannot find `DATABASE_URL`
 - database env vars exist but the database is empty
 - a deploy-all run points multiple apps at the same branch database
 

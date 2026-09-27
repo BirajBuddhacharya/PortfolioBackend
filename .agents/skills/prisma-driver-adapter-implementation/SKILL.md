@@ -611,7 +611,7 @@ import { PrismaClient } from "./generated/prisma/client";
 import { MyAdapterFactory } from "@my-org/adapter-mydb";
 
 const factory = new MyAdapterFactory({
-  url: process.env.POSTGRES_URL!,
+  url: process.env.DATABASE_URL!,
 });
 
 const prisma = new PrismaClient({ adapter: factory });

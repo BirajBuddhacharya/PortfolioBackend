@@ -32,7 +32,7 @@ import { defineConfig, env } from 'prisma/config'
 export default defineConfig({
   schema: 'prisma/schema.prisma',
   datasource: {
-    url: env('POSTGRES_URL'),
+    url: env('DATABASE_URL'),
   },
 })
 ```
@@ -42,7 +42,7 @@ export default defineConfig({
 In `.env`:
 
 ```env
-POSTGRES_URL="sqlserver://localhost:1433;database=mydb;user=sa;password=Password123;encrypt=true;trustServerCertificate=true"
+DATABASE_URL="sqlserver://localhost:1433;database=mydb;user=sa;password=Password123;encrypt=true;trustServerCertificate=true"
 ```
 
 ### Connection String Format

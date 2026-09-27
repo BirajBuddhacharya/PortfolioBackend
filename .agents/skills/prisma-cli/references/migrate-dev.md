@@ -136,8 +136,8 @@ prisma migrate dev --name remove_field
 ```typescript
 export default defineConfig({
   datasource: {
-    url: env('POSTGRES_URL'),
-    shadowDatabaseUrl: env('POSTGRES_URL'),
+    url: env('DATABASE_URL'),
+    shadowDatabaseUrl: env('SHADOW_DATABASE_URL'),
   },
 })
 ```

@@ -147,9 +147,9 @@ Manage project env vars:
 bunx @prisma/cli@latest project env list
 bunx @prisma/cli@latest project env add --file .env --role production
 bunx @prisma/cli@latest project env add --file .env.preview --role preview
-bunx @prisma/cli@latest project env add POSTGRES_URL=postgresql://... --branch feature/foo
+bunx @prisma/cli@latest project env add DATABASE_URL=postgresql://... --branch feature/foo
 bunx @prisma/cli@latest project env update --file .env --role production
-bunx @prisma/cli@latest project env update POSTGRES_URL=postgresql://... --branch feature/foo
+bunx @prisma/cli@latest project env update DATABASE_URL=postgresql://... --branch feature/foo
 bunx @prisma/cli@latest project env list --branch feature/foo
 bunx @prisma/cli@latest project env remove STRIPE_KEY --role preview
 ```
@@ -162,7 +162,7 @@ Database and env guardrails:
 
 - Deploys do not run migrations, seed data, or schema push. Run the app's own Prisma database command after deploy setup when needed.
 - In deploy-all, every target on the same branch shares branch-scoped project env unless you assign app-specific env values yourself.
-- Existing database env values supplied through `--env POSTGRES_URL=...`, `--env DIRECT_URL=...`, an env file, or project env should be treated as the source of truth.
+- Existing database env values supplied through `--env DATABASE_URL=...`, `--env DIRECT_URL=...`, an env file, or project env should be treated as the source of truth.
 - Known non-PostgreSQL Prisma schema sources should not be wired to Prisma Postgres automatically.
 
 ## Project Git, Branch, and Database Operations
@@ -192,7 +192,7 @@ Destructive and ownership-changing commands (`remove`, `restore`, `transfer`, `c
 
 Git integration connects a Project to a GitHub repository. Console-side GitHub import can create a Compute app and trigger push-to-deploy for the connected repository, including default-branch production deploys. The CLI `git connect` command is setup, not a local deploy command; use `app deploy` for explicit CLI deploys.
 
-For GitHub-driven deploys, inspect the Console/build-runner state, deployment records, build logs, or the `Prisma Compute Deploy` GitHub check run instead of assuming local CLI output exists. The build runner can perform branch-aware database/env wiring: a preview branch with a Prisma schema and no `POSTGRES_URL` can get a branch-scoped preview database, while production can wire a missing `POSTGRES_URL` template from an existing ready database. GitHub check runs are the guided POSTGRES_URL path; do not promise Vercel-style PR comments.
+For GitHub-driven deploys, inspect the Console/build-runner state, deployment records, build logs, or the `Prisma Compute Deploy` GitHub check run instead of assuming local CLI output exists. The build runner can perform branch-aware database/env wiring: a preview branch with a Prisma schema and no `DATABASE_URL` can get a branch-scoped preview database, while production can wire a missing `DATABASE_URL` template from an existing ready database. GitHub check runs are the guided feedback path; do not promise Vercel-style PR comments.
 
 Database and database-connection commands never print stored secret values in list/show output. `database create` and `database connection create` return a one-time connection URL; treat it as a secret, store it immediately in env if needed, and do not echo it back in summaries. Removal requires exact `--confirm <id>`; `--yes` is not enough.
 

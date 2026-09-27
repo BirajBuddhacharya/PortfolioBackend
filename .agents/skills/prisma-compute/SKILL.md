@@ -144,7 +144,7 @@ Use this skill for:
 
 ### 6. Branch, Environment, and Database
 
-- `env-do-not-leak-secrets` - Never print full `POSTGRES_URL`, service tokens, or secret values.
+- `env-do-not-leak-secrets` - Never print full `DATABASE_URL`, service tokens, or secret values.
 - `env-deploy-loads-dotenv` - Generated deploy scripts may load env via `prisma.compute.ts` or `--env .env`; inspect the actual script/config before redeploy.
 - `env-migrations-separate` - Redeploy scripts do not run migrations or seed data. Run the appropriate Prisma database scripts separately.
 - `env-cli-token-name` - `@prisma/cli` uses `PRISMA_SERVICE_TOKEN` for service-token auth.
@@ -188,5 +188,5 @@ Use this skill for:
 - Do not bury Compute deployment guidance in the generic `prisma-cli` skill.
 - Do not run `create-prisma` inside an existing app just to deploy it; use the generated `compute:deploy` script or `@prisma/cli app deploy`.
 - Do not tell users that every `create-prisma` template can auto-deploy.
-- Do not deploy with placeholder `POSTGRES_URL` values.
+- Do not deploy with placeholder `DATABASE_URL` values.
 - Do not assume `next start` is the Compute runtime path; Next.js deploys need standalone output.
