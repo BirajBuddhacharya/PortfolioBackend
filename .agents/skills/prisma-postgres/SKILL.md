@@ -95,7 +95,7 @@ For CI or other non-interactive environments:
 prisma postgres link --api-key "<your-api-key>" --database "db_..."
 ```
 
-This flow updates your local `.env` with `POSTGRES_URL`, then you can run `prisma generate` and `prisma migrate dev`.
+This flow updates your local `.env` with `DATABASE_URL`, then you can run `prisma generate` and `prisma migrate dev`.
 
 ### 4. Programmatic provisioning with Management API
 

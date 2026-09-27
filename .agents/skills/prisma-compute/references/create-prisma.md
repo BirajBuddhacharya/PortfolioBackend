@@ -62,7 +62,7 @@ With PostgreSQL, no explicit `--database-url`, and no `--no-prisma-postgres`, th
 
 - a Prisma Compute project
 - a `main` Prisma Postgres database on the `main` branch
-- a `.env` file containing `POSTGRES_URL`
+- a `.env` file containing `DATABASE_URL`
 - an initial Compute deployment with env vars loaded from `.env`
 
 `create-prisma` is the new-project path. If the user needs a later preview branch deploy, use the generated `compute:deploy` script or `@prisma/cli app deploy --branch <git-name>` after the app exists. Keep branch names aligned across `app deploy --branch`, `database create --branch`, and `project env ... --branch`.
@@ -79,7 +79,7 @@ bunx create-prisma@latest \
   --no-deploy
 ```
 
-Do not deploy placeholder database URLs. If `POSTGRES_URL` came from a placeholder default, omit it from deploy env and ask the user for a real production database.
+Do not deploy placeholder database URLs. If `DATABASE_URL` came from a placeholder default, omit it from deploy env and ask the user for a real production database.
 
 ## Generated Deploy Script
 
@@ -106,7 +106,7 @@ All Prisma 7 scaffolds:
 - use `prisma.config.ts`
 - load `dotenv/config` where the runtime supports it
 - generate Prisma Client into a template-local path such as `src/generated/prisma`
-- use `@prisma/adapter-pg` with a `POSTGRES_URL` connection string for PostgreSQL
+- use `@prisma/adapter-pg` with a `DATABASE_URL` connection string for PostgreSQL
 
 ## Addon Notes
 

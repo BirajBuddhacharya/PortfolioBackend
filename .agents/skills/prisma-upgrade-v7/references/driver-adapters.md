@@ -68,7 +68,7 @@ import { PrismaClient } from '../generated/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 
 const adapter = new PrismaPg({
-  connectionString: process.env.POSTGRES_URL
+  connectionString: process.env.DATABASE_URL
 })
 
 const prisma = new PrismaClient({ adapter })
@@ -99,7 +99,7 @@ import { PrismaClient } from '../generated/client'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 
 const adapter = new PrismaBetterSqlite3({
-  url: process.env.POSTGRES_URL || 'file:./dev.db'
+  url: process.env.DATABASE_URL || 'file:./dev.db'
 })
 
 const prisma = new PrismaClient({ adapter })
@@ -112,7 +112,7 @@ import { PrismaClient } from '../generated/client'
 import { PrismaNeon } from '@prisma/adapter-neon'
 
 const adapter = new PrismaNeon({
-  connectionString: process.env.POSTGRES_URL
+  connectionString: process.env.DATABASE_URL
 })
 
 const prisma = new PrismaClient({ adapter })
@@ -125,7 +125,7 @@ import { PrismaClient } from '../generated/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 
 const adapter = new PrismaPg({
-  connectionString: process.env.POSTGRES_URL,
+  connectionString: process.env.DATABASE_URL,
 })
 
 const prisma = new PrismaClient({ adapter })

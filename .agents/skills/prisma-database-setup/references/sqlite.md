@@ -31,7 +31,7 @@ import { defineConfig, env } from 'prisma/config'
 export default defineConfig({
   schema: 'prisma/schema.prisma',
   datasource: {
-    url: env('POSTGRES_URL'),
+    url: env('DATABASE_URL'),
   },
 })
 ```
@@ -41,7 +41,7 @@ export default defineConfig({
 In `.env`:
 
 ```env
-POSTGRES_URL="file:./dev.db"
+DATABASE_URL="file:./dev.db"
 ```
 
 ### Connection String Format
@@ -67,7 +67,7 @@ Use a driver adapter for the standard SQL workflow.
    import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 
    const adapter = new PrismaBetterSqlite3({
-     url: process.env.POSTGRES_URL ?? 'file:./dev.db',
+     url: process.env.DATABASE_URL ?? 'file:./dev.db',
    })
 
    const prisma = new PrismaClient({ adapter })
@@ -88,7 +88,7 @@ For edge compatibility or Turso:
    import { PrismaLibSql } from '@prisma/adapter-libsql'
 
    const adapter = new PrismaLibSql({
-     url: process.env.POSTGRES_URL,
+     url: process.env.TURSO_DATABASE_URL,
      authToken: process.env.TURSO_AUTH_TOKEN,
    })
    const prisma = new PrismaClient({ adapter })
@@ -103,4 +103,4 @@ For edge compatibility or Turso:
 ## Common Issues
 
 ### "Database file not found"
-Ensure the path in `POSTGRES_URL` is correct relative to where Prisma is running or the schema file. `file:./dev.db` creates it next to schema.
+Ensure the path in `DATABASE_URL` is correct relative to where Prisma is running or the schema file. `file:./dev.db` creates it next to schema.

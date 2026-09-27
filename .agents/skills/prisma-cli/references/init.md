@@ -20,7 +20,7 @@ bunx --bun prisma init
 
 - `prisma/schema.prisma` - Your Prisma schema file
 - `prisma.config.ts` - TypeScript configuration for Prisma CLI
-- `.env` - Environment variables (POSTGRES_URL)
+- `.env` - Environment variables (DATABASE_URL)
 - `.gitignore` - Ensures `.env` is ignored and appends the generated client path
 
 ## Options
@@ -105,7 +105,7 @@ export default defineConfig({
     path: 'prisma/migrations',
   },
   datasource: {
-    url: process.env['POSTGRES_URL'],
+    url: process.env['DATABASE_URL'],
   },
 })
 ```
@@ -121,14 +121,14 @@ export default defineConfig({
     path: 'prisma/migrations',
   },
   datasource: {
-    url: env('POSTGRES_URL'),
+    url: env('DATABASE_URL'),
   },
 })
 ```
 
 ## Next Steps After Init
 
-1. Configure `POSTGRES_URL` in `.env` (and let `prisma.config.ts` read it)
+1. Configure `DATABASE_URL` in `.env` (and let `prisma.config.ts` read it)
 2. Define your models in `prisma/schema.prisma`
 3. Run `prisma dev` for local development or connect to remote DB
 4. Run `prisma migrate dev` to create migrations

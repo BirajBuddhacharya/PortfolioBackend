@@ -19,7 +19,7 @@ In `prisma/schema.prisma`:
 ```prisma
 datasource db {
   provider = "mongodb"
-  url      = env("POSTGRES_URL")
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -60,7 +60,7 @@ model Post {
 In `.env`:
 
 ```env
-POSTGRES_URL="mongodb+srv://user:password@cluster.mongodb.net/mydb?retryWrites=true&w=majority"
+DATABASE_URL="mongodb+srv://user:password@cluster.mongodb.net/mydb?retryWrites=true&w=majority"
 ```
 
 ## Migrations vs Introspection

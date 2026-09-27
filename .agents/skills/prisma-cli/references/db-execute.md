@@ -60,7 +60,7 @@ Uses `datasource` from `prisma.config.ts`:
 ```typescript
 export default defineConfig({
   datasource: {
-    url: env('POSTGRES_URL'),
+    url: env('DATABASE_URL'),
   },
 })
 ```
