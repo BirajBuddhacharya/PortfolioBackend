@@ -1,26 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { ContactBaseService } from './common/contact.base.service';
 import { CreateContactDto } from './dto/create-contact.dto';
-import { UpdateContactDto } from './dto/update-contact.dto';
+import { AllConfig } from 'src/config/config.type';
+
+const SITEVERIFY_URL =
+  'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
 @Injectable()
 export class ContactService {
-  create(createContactDto: CreateContactDto) {
-    return 'This action adds a new contact';
-  }
+  constructor(
+    private readonly contactBaseService: ContactBaseService,
+    private readonly configService: ConfigService<AllConfig>,
+  ) {}
 
-  findAll() {
-    return `This action returns all contact`;
-  }
+  async create(dto: CreateContactDto) {
+    const secret = this.configService.get('app', {
+      infer: true,
+    })!.turnstileSecretKey;
+    if (!secret) throw new BadRequestException('Captcha not configured');
 
-  findOne(id: number) {
-    return `This action returns a #${id} contact`;
-  }
+    const result = await fetch(SITEVERIFY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        secret,
+        response: dto.turnstileToken,
+      }).toString(),
+    }).then((r) => r.json() as Promise<{ success: boolean }>);
 
-  update(id: number, updateContactDto: UpdateContactDto) {
-    return `This action updates a #${id} contact`;
-  }
+    if (!result.success)
+      throw new BadRequestException('Captcha verification failed');
 
-  remove(id: number) {
-    return `This action removes a #${id} contact`;
+    const { turnstileToken: _, ...contactData } = dto;
+    return this.contactBaseService.create(contactData as any);
   }
 }

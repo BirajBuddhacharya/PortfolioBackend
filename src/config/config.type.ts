@@ -5,6 +5,7 @@ export interface AppConfig {
   swaggerUser: string;
   swaggerPassword: string;
   corsOrigins: string[];
+  turnstileSecretKey: string;
 }
 
 export type AllConfig = {

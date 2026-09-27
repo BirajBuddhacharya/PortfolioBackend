@@ -1,5 +1,15 @@
 import { registerAs } from '@nestjs/config';
 
+export interface AppConfig {
+  port: number;
+  jwtSecretKey: string;
+  jwtExpiresIn: string;
+  swaggerUser: string;
+  swaggerPassword: string;
+  corsOrigins: string[];
+  turnstileSecretKey: string;
+}
+
 export default registerAs('app', () => ({
   port: parseInt(process.env.APP_PORT ?? '3000', 10),
   jwtSecretKey: process.env.JWT_SECRET ?? 'change-me-in-production',
@@ -7,4 +17,5 @@ export default registerAs('app', () => ({
   swaggerUser: process.env.SWAGGER_USER ?? 'admin',
   swaggerPassword: process.env.SWAGGER_PASSWORD ?? 'admin',
   corsOrigins: process.env.CORS_ORIGINS?.split(',') ?? ['*'],
+  turnstileSecretKey: process.env.TURNSTILE_SECRET_KEY ?? '',
 }));

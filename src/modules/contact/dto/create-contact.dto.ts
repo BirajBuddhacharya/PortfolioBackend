@@ -22,4 +22,9 @@ export class CreateContactDto {
   @IsNotEmpty()
   @MaxLength(5000)
   message: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  turnstileToken: string;
 }
