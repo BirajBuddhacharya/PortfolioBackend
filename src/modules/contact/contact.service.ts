@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { ContactBaseService } from './common/contact.base.service';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { AllConfig } from 'src/config/config.type';
+import validate from 'deep-email-validator';
 
 const SITEVERIFY_URL =
   'https://challenges.cloudflare.com/turnstile/v0/siteverify';
@@ -32,6 +33,17 @@ export class ContactService {
 
     if (!result.success)
       throw new BadRequestException('Captcha verification failed');
+
+    const emailValidation = await validate({
+      email: dto.email,
+      validateRegex: true,
+      validateMx: true,
+      validateTypo: true,
+      validateDisposable: true,
+      validateSMTP: true,
+    });
+    if (!emailValidation.valid)
+      throw new BadRequestException(`Invalid email: ${emailValidation.reason}`);
 
     const { turnstileToken: _, ...contactData } = dto;
     return this.contactBaseService.create(contactData as any);
