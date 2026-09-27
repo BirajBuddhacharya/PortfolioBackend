@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "seed": "tsx prisma/seed.ts",
     "db:migrate": "prisma migrate dev",
-    "db:migrate:prod": "primsa migrate deploy",
+    "db:migrate:prod": "prisma migrate deploy",
     "db:makemigration": "prisma generate"
   },
   "dependencies": {
