@@ -40,11 +40,11 @@
     "class-validator": "^0.15.1",
     "cloudinary": "^2.11.0",
     "deep-email-validator": "^0.1.27",
+    "express": "^5.2.1",
     "express-basic-auth": "^1.2.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "pg": "^8.22.0",
-    "pg-boss": "^12.35.0",
     "reflect-metadata": "^0.2.2",
     "resend": "^6.30.0",
     "rxjs": "^7.8.1"
