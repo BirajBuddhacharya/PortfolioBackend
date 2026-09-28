@@ -44,6 +44,7 @@ export class UploadService {
     return this.uploadStream(file.buffer, {
       folder: 'portfolio/resumes',
       resource_type: 'raw',
+      type: 'upload',
       format: 'pdf',
     });
   }

@@ -21,13 +21,25 @@ export class ProjectService {
     return this.projectBaseService.findOneOrFail({ id });
   }
 
+  private async uniqueSlug(base: string, excludeId?: string): Promise<string> {
+    let slug = base;
+    let n = 1;
+    while (true) {
+      const existing = await this.projectBaseService.findOne({ slug } as any);
+      if (!existing || existing.id === excludeId) return slug;
+      slug = `${base}-${++n}`;
+    }
+  }
+
   findBySlug(slug: string) {
     return this.projectBaseService.findOneOrFail({ slug });
   }
 
-  create(dto: CreateProjectDto) {
+  async create(dto: CreateProjectDto) {
+    const slug = await this.uniqueSlug(dto.slug);
     return this.projectBaseService.create({
       ...dto,
+      slug,
       stack: dto.stack ?? [],
       gallery: dto.gallery ?? [],
       metrics: dto.metrics ?? [],
@@ -39,8 +51,11 @@ export class ProjectService {
   }
 
   async update(id: string, dto: UpdateProjectDto) {
-    await this.projectBaseService.findOneOrFail({ id });
-    return this.projectBaseService.update({ id }, dto as any);
+    const existing = await this.projectBaseService.findOneOrFail({ id });
+    const slug = dto.slug && dto.slug !== existing.slug
+      ? await this.uniqueSlug(dto.slug, id)
+      : dto.slug;
+    return this.projectBaseService.update({ id }, { ...dto as any, ...(slug ? { slug } : {}) });
   }
 
   async softDelete(id: string) {

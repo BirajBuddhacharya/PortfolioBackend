@@ -18,6 +18,9 @@ export class ContactService {
   ) {}
 
   async create(dto: CreateContactDto) {
+    if (!dto.turnstileToken)
+      throw new BadRequestException('Captcha token required');
+
     const appConfig = this.configService.get('app', { infer: true })!;
 
     if (!appConfig.turnstileSecretKey)

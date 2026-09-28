@@ -47,6 +47,16 @@ export class BlogService {
     return this.toResponse(post);
   }
 
+  private async uniqueSlug(base: string, excludeId?: string): Promise<string> {
+    let slug = base;
+    let n = 1;
+    while (true) {
+      const existing = await this.blogPostBaseService.findOne({ slug } as any);
+      if (!existing || existing.id === excludeId) return slug;
+      slug = `${base}-${++n}`;
+    }
+  }
+
   async findTags() {
     const { result } = await this.blogPostBaseService.find({ status: 'published' });
     const tags = new Set<string>();
@@ -54,10 +64,12 @@ export class BlogService {
     return [...tags].sort();
   }
 
-  create(dto: CreateBlogPostDto) {
+  async create(dto: CreateBlogPostDto) {
+    const slug = await this.uniqueSlug(dto.slug);
     const status = dto.status ?? 'draft';
     return this.blogPostBaseService.create({
       ...dto,
+      slug,
       tags: dto.tags ?? [],
       status,
       publishedAt: dto.publishedAt
@@ -70,6 +82,9 @@ export class BlogService {
 
   async update(id: string, dto: UpdateBlogPostDto) {
     const existing = await this.blogPostBaseService.findOneOrFail({ id });
+    const slug = dto.slug && dto.slug !== existing.slug
+      ? await this.uniqueSlug(dto.slug, id)
+      : dto.slug;
     const publishedAt =
       dto.status === 'published' && !existing.publishedAt
         ? new Date()
@@ -78,7 +93,7 @@ export class BlogService {
           : undefined;
     return this.blogPostBaseService.update(
       { id },
-      { ...dto, ...(publishedAt !== undefined ? { publishedAt } : {}) },
+      { ...dto, ...(slug ? { slug } : {}), ...(publishedAt !== undefined ? { publishedAt } : {}) },
     );
   }
 
