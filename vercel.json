@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/index.ts": {
-      "includeFiles": "node_modules/swagger-ui-dist/**,generated/prisma/**"
+      "includeFiles": "node_modules/swagger-ui-dist/**"
     }
   },
   "rewrites": [
