@@ -1,5 +1,6 @@
 export interface AppConfig {
   port: number;
+  databaseUrl: string;
   jwtSecretKey: string;
   jwtExpiresIn: string;
   swaggerUser: string;
