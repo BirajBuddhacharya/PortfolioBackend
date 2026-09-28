@@ -2,7 +2,6 @@ import { registerAs } from '@nestjs/config';
 
 export default registerAs('app', () => ({
   port: parseInt(process.env.APP_PORT ?? '3000', 10),
-  databaseUrl: process.env.DATABASE_URL ?? '',
   jwtSecretKey: process.env.JWT_SECRET ?? 'change-me-in-production',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? '7d',
   swaggerUser: process.env.SWAGGER_USER ?? 'admin',

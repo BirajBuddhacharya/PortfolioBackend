@@ -20,13 +20,11 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { GalleryModule } from './modules/gallery/gallery.module';
 import appConfig from './config/app.config';
-import { QueueModule } from './queue/queue.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, load: [appConfig] }),
     PrismaModule,
-    QueueModule,
     AuthModule,
     UserModule,
     ContactModule,
