@@ -164,6 +164,7 @@ export const ProfileScalarFieldEnum = {
   ctaLabel: 'ctaLabel',
   footerNote: 'footerNote',
   resumePdfUrl: 'resumePdfUrl',
+  emailNotifications: 'emailNotifications',
   updatedAt: 'updatedAt'
 } as const
 

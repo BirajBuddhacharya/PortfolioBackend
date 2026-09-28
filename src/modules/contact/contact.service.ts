@@ -43,14 +43,20 @@ export class ContactService {
       where: { id: 1 },
       select: { emailNotifications: true },
     });
-    if (profile?.emailNotifications !== false && appConfig.resendApiKey && appConfig.contactEmail) {
+    if (
+      profile?.emailNotifications !== false &&
+      appConfig.resendApiKey &&
+      appConfig.contactEmail
+    ) {
       const resend = new Resend(appConfig.resendApiKey);
-      await resend.emails.send({
-        from: 'WebsiteContact@resend.dev',
-        to: appConfig.contactEmail,
-        subject: `${dto.subject} — from ${dto.name || dto.email}`,
-        html: dto.message.replace(/\n/g, '<br>'),
-      }).catch((err) => console.error('Failed to send contact email:', err));
+      await resend.emails
+        .send({
+          from: 'WebsiteContact@resend.dev',
+          to: appConfig.contactEmail,
+          subject: `${dto.subject} — from ${dto.name || dto.email}`,
+          html: dto.message.replace(/\n/g, '<br>'),
+        })
+        .catch((err) => console.error('Failed to send contact email:', err));
     }
 
     return contact;

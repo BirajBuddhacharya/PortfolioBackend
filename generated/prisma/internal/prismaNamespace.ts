@@ -1216,6 +1216,7 @@ export const ProfileScalarFieldEnum = {
   ctaLabel: 'ctaLabel',
   footerNote: 'footerNote',
   resumePdfUrl: 'resumePdfUrl',
+  emailNotifications: 'emailNotifications',
   updatedAt: 'updatedAt'
 } as const
 
@@ -1393,6 +1394,13 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
  * Reference to a field of type 'QueryMode'
  */
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
