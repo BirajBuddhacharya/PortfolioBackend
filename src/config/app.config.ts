@@ -8,6 +8,10 @@ export interface AppConfig {
   swaggerPassword: string;
   corsOrigins: string[];
   turnstileSecretKey: string;
+  googleClientId: string;
+  googleClientSecret: string;
+  googleCallbackUrl: string;
+  frontendUrl: string;
 }
 
 export default registerAs('app', () => ({
@@ -20,4 +24,8 @@ export default registerAs('app', () => ({
   turnstileSecretKey: process.env.TURNSTILE_SECRET_KEY ?? '',
   resendApiKey: process.env.RESEND_API_KEY ?? '',
   contactEmail: process.env.CONTACT_EMAIL ?? '',
+  googleClientId: process.env.GOOGLE_CLIENT_ID ?? '',
+  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+  googleCallbackUrl: process.env.GOOGLE_CALLBACK_URL ?? 'http://localhost:3007/api/v1/auth/google/callback',
+  frontendUrl: process.env.FRONTEND_URL ?? 'http://localhost:3000',
 }));

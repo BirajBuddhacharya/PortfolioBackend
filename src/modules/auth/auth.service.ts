@@ -5,6 +5,11 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { LoginDto } from './dto/login.dto';
 import { User } from '../user/entity/user.entity';
 
+export interface GoogleUser {
+  email: string;
+  name: string;
+}
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -27,6 +32,20 @@ export class AuthService {
     const { password: _pw, ...userWithoutPassword } = user;
 
     return { accessToken, user: userWithoutPassword };
+  }
+
+  async googleLogin(googleUser: GoogleUser) {
+    const user = await this.prisma.user.findFirst({
+      where: { email: googleUser.email, deletedAt: null },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('No admin account linked to this Google account');
+    }
+
+    const payload = { sub: user.id, email: user.email };
+    const accessToken = this.jwtService.sign(payload);
+    return { accessToken };
   }
 
   me(user: User) {

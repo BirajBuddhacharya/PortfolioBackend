@@ -8,6 +8,10 @@ export interface AppConfig {
   turnstileSecretKey: string;
   resendApiKey: string;
   contactEmail: string;
+  googleClientId: string;
+  googleClientSecret: string;
+  googleCallbackUrl: string;
+  frontendUrl: string;
 }
 
 export type AllConfig = {
