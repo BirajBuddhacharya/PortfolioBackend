@@ -186,6 +186,7 @@ export const ProjectScalarFieldEnum = {
   metrics: 'metrics',
   live: 'live',
   repo: 'repo',
+  coverImage: 'coverImage',
   coverHeight: 'coverHeight',
   coverAccent: 'coverAccent',
   coverColor: 'coverColor',

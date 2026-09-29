@@ -42,7 +42,7 @@ export class ProjectService {
       slug,
       stack: dto.stack ?? [],
       gallery: dto.gallery ?? [],
-      metrics: dto.metrics ?? [],
+      metrics: (dto.metrics ?? []) as any,
       coverHeight: dto.coverHeight ?? 260,
       coverAccent: dto.coverAccent ?? '#FF6B6B',
       coverColor: dto.coverColor ?? '#141418',

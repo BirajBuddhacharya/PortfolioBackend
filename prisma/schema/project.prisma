@@ -17,6 +17,7 @@ model Project {
   metrics     Json      @default("[]")
   live        String?
   repo        String?
+  coverImage  String?
   coverHeight Int       @default(260)
   coverAccent String    @default("#FF6B6B")
   coverColor  String    @default("#141418")

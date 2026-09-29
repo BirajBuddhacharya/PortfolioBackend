@@ -7,7 +7,17 @@ import {
   IsString,
   IsUrl,
   Min,
+  ValidateNested,
 } from 'class-validator';
+import { Type } from 'class-transformer';
+
+export class MetricDto {
+  @IsString()
+  value: string;
+
+  @IsString()
+  label: string;
+}
 
 export class CreateProjectDto {
   @ApiProperty()
@@ -60,10 +70,12 @@ export class CreateProjectDto {
   @IsString({ each: true })
   gallery?: string[];
 
-  @ApiPropertyOptional({ description: '{ value: string; label: string }[]' })
+  @ApiPropertyOptional({ type: [MetricDto] })
   @IsOptional()
   @IsArray()
-  metrics?: { value: string; label: string }[];
+  @ValidateNested({ each: true })
+  @Type(() => MetricDto)
+  metrics?: MetricDto[];
 
   @ApiPropertyOptional()
   @IsOptional()
@@ -74,6 +86,11 @@ export class CreateProjectDto {
   // @IsUrl()
   @IsOptional()
   repo?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsUrl()
+  coverImage?: string;
 
   @ApiPropertyOptional({ default: 260 })
   @IsOptional()

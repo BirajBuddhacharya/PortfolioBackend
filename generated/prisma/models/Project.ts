@@ -46,6 +46,7 @@ export type ProjectMinAggregateOutputType = {
   status: string | null
   live: string | null
   repo: string | null
+  coverImage: string | null
   coverHeight: number | null
   coverAccent: string | null
   coverColor: string | null
@@ -66,6 +67,7 @@ export type ProjectMaxAggregateOutputType = {
   status: string | null
   live: string | null
   repo: string | null
+  coverImage: string | null
   coverHeight: number | null
   coverAccent: string | null
   coverColor: string | null
@@ -89,6 +91,7 @@ export type ProjectCountAggregateOutputType = {
   metrics: number
   live: number
   repo: number
+  coverImage: number
   coverHeight: number
   coverAccent: number
   coverColor: number
@@ -119,6 +122,7 @@ export type ProjectMinAggregateInputType = {
   status?: true
   live?: true
   repo?: true
+  coverImage?: true
   coverHeight?: true
   coverAccent?: true
   coverColor?: true
@@ -139,6 +143,7 @@ export type ProjectMaxAggregateInputType = {
   status?: true
   live?: true
   repo?: true
+  coverImage?: true
   coverHeight?: true
   coverAccent?: true
   coverColor?: true
@@ -162,6 +167,7 @@ export type ProjectCountAggregateInputType = {
   metrics?: true
   live?: true
   repo?: true
+  coverImage?: true
   coverHeight?: true
   coverAccent?: true
   coverColor?: true
@@ -272,6 +278,7 @@ export type ProjectGroupByOutputType = {
   metrics: runtime.JsonValue
   live: string | null
   repo: string | null
+  coverImage: string | null
   coverHeight: number
   coverAccent: string
   coverColor: string
@@ -318,6 +325,7 @@ export type ProjectWhereInput = {
   metrics?: Prisma.JsonFilter<"Project">
   live?: Prisma.StringNullableFilter<"Project"> | string | null
   repo?: Prisma.StringNullableFilter<"Project"> | string | null
+  coverImage?: Prisma.StringNullableFilter<"Project"> | string | null
   coverHeight?: Prisma.IntFilter<"Project"> | number
   coverAccent?: Prisma.StringFilter<"Project"> | string
   coverColor?: Prisma.StringFilter<"Project"> | string
@@ -341,6 +349,7 @@ export type ProjectOrderByWithRelationInput = {
   metrics?: Prisma.SortOrder
   live?: Prisma.SortOrderInput | Prisma.SortOrder
   repo?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverHeight?: Prisma.SortOrder
   coverAccent?: Prisma.SortOrder
   coverColor?: Prisma.SortOrder
@@ -367,6 +376,7 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   metrics?: Prisma.JsonFilter<"Project">
   live?: Prisma.StringNullableFilter<"Project"> | string | null
   repo?: Prisma.StringNullableFilter<"Project"> | string | null
+  coverImage?: Prisma.StringNullableFilter<"Project"> | string | null
   coverHeight?: Prisma.IntFilter<"Project"> | number
   coverAccent?: Prisma.StringFilter<"Project"> | string
   coverColor?: Prisma.StringFilter<"Project"> | string
@@ -390,6 +400,7 @@ export type ProjectOrderByWithAggregationInput = {
   metrics?: Prisma.SortOrder
   live?: Prisma.SortOrderInput | Prisma.SortOrder
   repo?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
   coverHeight?: Prisma.SortOrder
   coverAccent?: Prisma.SortOrder
   coverColor?: Prisma.SortOrder
@@ -421,6 +432,7 @@ export type ProjectScalarWhereWithAggregatesInput = {
   metrics?: Prisma.JsonWithAggregatesFilter<"Project">
   live?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   repo?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  coverImage?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   coverHeight?: Prisma.IntWithAggregatesFilter<"Project"> | number
   coverAccent?: Prisma.StringWithAggregatesFilter<"Project"> | string
   coverColor?: Prisma.StringWithAggregatesFilter<"Project"> | string
@@ -444,6 +456,7 @@ export type ProjectCreateInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   live?: string | null
   repo?: string | null
+  coverImage?: string | null
   coverHeight?: number
   coverAccent?: string
   coverColor?: string
@@ -467,6 +480,7 @@ export type ProjectUncheckedCreateInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   live?: string | null
   repo?: string | null
+  coverImage?: string | null
   coverHeight?: number
   coverAccent?: string
   coverColor?: string
@@ -490,6 +504,7 @@ export type ProjectUpdateInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   live?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   repo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverHeight?: Prisma.IntFieldUpdateOperationsInput | number
   coverAccent?: Prisma.StringFieldUpdateOperationsInput | string
   coverColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -513,6 +528,7 @@ export type ProjectUncheckedUpdateInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   live?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   repo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverHeight?: Prisma.IntFieldUpdateOperationsInput | number
   coverAccent?: Prisma.StringFieldUpdateOperationsInput | string
   coverColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -536,6 +552,7 @@ export type ProjectCreateManyInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   live?: string | null
   repo?: string | null
+  coverImage?: string | null
   coverHeight?: number
   coverAccent?: string
   coverColor?: string
@@ -559,6 +576,7 @@ export type ProjectUpdateManyMutationInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   live?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   repo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverHeight?: Prisma.IntFieldUpdateOperationsInput | number
   coverAccent?: Prisma.StringFieldUpdateOperationsInput | string
   coverColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -582,6 +600,7 @@ export type ProjectUncheckedUpdateManyInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   live?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   repo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverHeight?: Prisma.IntFieldUpdateOperationsInput | number
   coverAccent?: Prisma.StringFieldUpdateOperationsInput | string
   coverColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -605,6 +624,7 @@ export type ProjectCountOrderByAggregateInput = {
   metrics?: Prisma.SortOrder
   live?: Prisma.SortOrder
   repo?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrder
   coverHeight?: Prisma.SortOrder
   coverAccent?: Prisma.SortOrder
   coverColor?: Prisma.SortOrder
@@ -629,6 +649,7 @@ export type ProjectMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   live?: Prisma.SortOrder
   repo?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrder
   coverHeight?: Prisma.SortOrder
   coverAccent?: Prisma.SortOrder
   coverColor?: Prisma.SortOrder
@@ -649,6 +670,7 @@ export type ProjectMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   live?: Prisma.SortOrder
   repo?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrder
   coverHeight?: Prisma.SortOrder
   coverAccent?: Prisma.SortOrder
   coverColor?: Prisma.SortOrder
@@ -696,6 +718,7 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   metrics?: boolean
   live?: boolean
   repo?: boolean
+  coverImage?: boolean
   coverHeight?: boolean
   coverAccent?: boolean
   coverColor?: boolean
@@ -719,6 +742,7 @@ export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   metrics?: boolean
   live?: boolean
   repo?: boolean
+  coverImage?: boolean
   coverHeight?: boolean
   coverAccent?: boolean
   coverColor?: boolean
@@ -742,6 +766,7 @@ export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   metrics?: boolean
   live?: boolean
   repo?: boolean
+  coverImage?: boolean
   coverHeight?: boolean
   coverAccent?: boolean
   coverColor?: boolean
@@ -765,6 +790,7 @@ export type ProjectSelectScalar = {
   metrics?: boolean
   live?: boolean
   repo?: boolean
+  coverImage?: boolean
   coverHeight?: boolean
   coverAccent?: boolean
   coverColor?: boolean
@@ -773,7 +799,7 @@ export type ProjectSelectScalar = {
   deletedAt?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "title" | "blurb" | "summary" | "content" | "year" | "kind" | "status" | "stack" | "gallery" | "metrics" | "live" | "repo" | "coverHeight" | "coverAccent" | "coverColor" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "title" | "blurb" | "summary" | "content" | "year" | "kind" | "status" | "stack" | "gallery" | "metrics" | "live" | "repo" | "coverImage" | "coverHeight" | "coverAccent" | "coverColor" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["project"]>
 
 export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Project"
@@ -793,6 +819,7 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     metrics: runtime.JsonValue
     live: string | null
     repo: string | null
+    coverImage: string | null
     coverHeight: number
     coverAccent: string
     coverColor: string
@@ -1236,6 +1263,7 @@ export interface ProjectFieldRefs {
   readonly metrics: Prisma.FieldRef<"Project", 'Json'>
   readonly live: Prisma.FieldRef<"Project", 'String'>
   readonly repo: Prisma.FieldRef<"Project", 'String'>
+  readonly coverImage: Prisma.FieldRef<"Project", 'String'>
   readonly coverHeight: Prisma.FieldRef<"Project", 'Int'>
   readonly coverAccent: Prisma.FieldRef<"Project", 'String'>
   readonly coverColor: Prisma.FieldRef<"Project", 'String'>
