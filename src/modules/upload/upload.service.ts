@@ -46,6 +46,7 @@ export class UploadService {
       resource_type: 'raw',
       type: 'upload',
       format: 'pdf',
+      access_mode: 'public',
     });
   }
 }
