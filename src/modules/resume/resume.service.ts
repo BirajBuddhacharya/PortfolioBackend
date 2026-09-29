@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ResumeItemBaseService } from './resume-item.base.service';
 import { CreateResumeItemDto } from './dto/create-resume-item.dto';
 import { UpdateResumeItemDto } from './dto/update-resume-item.dto';
 import { ResumeSectionEnum } from './entity/resume-item.entity';
 import { PaginationDto } from '../../common/dto/pagination.dto';
+import { PrismaService } from '../../prisma/prisma.service';
 
 function toPublicShape(item: {
   id: string;
@@ -20,7 +21,16 @@ function toPublicShape(item: {
 
 @Injectable()
 export class ResumeService {
-  constructor(private resumeItemBaseService: ResumeItemBaseService) {}
+  constructor(
+    private resumeItemBaseService: ResumeItemBaseService,
+    private prisma: PrismaService,
+  ) {}
+
+  async getResumePdfUrl(): Promise<string> {
+    const profile = await this.prisma.profile.findFirst();
+    if (!profile?.resumePdfUrl) throw new NotFoundException('No resume PDF configured');
+    return profile.resumePdfUrl;
+  }
 
   async getGrouped() {
     const { result } = await this.resumeItemBaseService.find(

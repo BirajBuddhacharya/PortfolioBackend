@@ -6,9 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  Res,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import type { Response } from 'express';
 import { ResumeService } from './resume.service';
+import { UploadService } from '../upload/upload.service';
 import { CreateResumeItemDto } from './dto/create-resume-item.dto';
 import { UpdateResumeItemDto } from './dto/update-resume-item.dto';
 import { SkipAuthCheck } from '../../decorators/public.decorator';
@@ -23,12 +26,22 @@ import { PaginationDto } from '../../common/dto/pagination.dto';
 @ApiBearerAuth()
 @Controller('resume')
 export class ResumeController {
-  constructor(private resumeService: ResumeService) {}
+  constructor(
+    private resumeService: ResumeService,
+    private uploadService: UploadService,
+  ) {}
 
   @Get()
   @SkipAuthCheck()
   async getGrouped() {
     return new ResponseDto(await this.resumeService.getGrouped());
+  }
+
+  @Get('pdf')
+  @SkipAuthCheck()
+  async getPdf(@Res() res: Response) {
+    const url = await this.resumeService.getResumePdfUrl();
+    await this.uploadService.proxyPdf(url, res);
   }
 
   @Get('items')
