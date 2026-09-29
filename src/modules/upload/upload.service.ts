@@ -18,10 +18,13 @@ export class UploadService {
     options: Record<string, unknown>,
   ): Promise<UploadApiResponse> {
     return new Promise((resolve, reject) => {
-      const stream = cloudinary.uploader.upload_stream(options, (err, result) => {
-        if (err || !result) return reject(err ?? new Error('Upload failed'));
-        resolve(result);
-      });
+      const stream = cloudinary.uploader.upload_stream(
+        options,
+        (err, result) => {
+          if (err || !result) return reject(err ?? new Error('Upload failed'));
+          resolve(result);
+        },
+      );
       Readable.from(buffer).pipe(stream);
     });
   }
@@ -47,6 +50,7 @@ export class UploadService {
       type: 'upload',
       format: 'pdf',
       access_mode: 'public',
+      public_id: file.originalname + '_' + Date.now(),
     });
   }
 }
