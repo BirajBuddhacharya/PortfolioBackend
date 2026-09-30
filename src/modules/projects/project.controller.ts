@@ -19,6 +19,7 @@ import { ResponseDto } from '../../common/response/response.dto';
 import { PaginationSortQuery } from '../../decorators/pagination.decorator';
 import { RequireSwaggerPaginationSort } from '../../decorators/swagger-pagination.decorator';
 import { PaginationDto } from '../../common/dto/pagination.dto';
+import { GetProjectsDto } from './dto/get-projects.dto';
 
 @ApiTags('Projects')
 @ApiBearerAuth()
@@ -31,10 +32,11 @@ export class ProjectController {
   @RequireSwaggerPaginationSort()
   async findAll(
     @PaginationSortQuery() pagination: PaginationDto,
-    @Query('search') search?: string,
-    @Query('status') status?: string,
+    @Query() query: GetProjectsDto,
   ) {
-    return new ResponseDto(await this.projectService.findAll(pagination, search, status));
+    return new ResponseDto(
+      await this.projectService.findAll(pagination, query.search, query.status),
+    );
   }
 
   @Get(':slug')
@@ -46,18 +48,27 @@ export class ProjectController {
   @Post()
   @SetRoles(RoleEnum.ADMIN)
   async create(@Body() dto: CreateProjectDto) {
-    return new ResponseDto(await this.projectService.create(dto), 'Project created');
+    return new ResponseDto(
+      await this.projectService.create(dto),
+      'Project created',
+    );
   }
 
   @Patch(':id')
   @SetRoles(RoleEnum.ADMIN)
   async update(@Param('id') id: string, @Body() dto: UpdateProjectDto) {
-    return new ResponseDto(await this.projectService.update(id, dto), 'Project updated');
+    return new ResponseDto(
+      await this.projectService.update(id, dto),
+      'Project updated',
+    );
   }
 
   @Delete(':id')
   @SetRoles(RoleEnum.ADMIN)
   async remove(@Param('id') id: string) {
-    return new ResponseDto(await this.projectService.softDelete(id), 'Project deleted');
+    return new ResponseDto(
+      await this.projectService.softDelete(id),
+      'Project deleted',
+    );
   }
 }
