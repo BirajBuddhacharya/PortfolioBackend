@@ -18,25 +18,31 @@ export class ContactService {
   ) {}
 
   async create(dto: CreateContactDto) {
-    if (!dto.turnstileToken)
+    const ignoreTurnstile = this.configService.get('app.ignoreTurnstile', {
+      infer: true,
+    });
+
+    if (!dto.turnstileToken && !ignoreTurnstile)
       throw new BadRequestException('Captcha token required');
 
     const appConfig = this.configService.get('app', { infer: true })!;
 
-    if (!appConfig.turnstileSecretKey)
+    if (!appConfig.turnstileSecretKey && !ignoreTurnstile)
       throw new BadRequestException('Captcha not configured');
 
-    const result = await fetch(SITEVERIFY_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        secret: appConfig.turnstileSecretKey,
-        response: dto.turnstileToken,
-      }).toString(),
-    }).then((r) => r.json() as Promise<{ success: boolean }>);
+    if (!ignoreTurnstile) {
+      const result = await fetch(SITEVERIFY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          secret: appConfig.turnstileSecretKey,
+          response: dto.turnstileToken,
+        }).toString(),
+      }).then((r) => r.json() as Promise<{ success: boolean }>);
 
-    if (!result.success)
-      throw new BadRequestException('Captcha verification failed');
+      if (!result.success)
+        throw new BadRequestException('Captcha verification failed');
+    }
 
     const { turnstileToken: _, ...contactData } = dto;
     const contact = await this.contactBaseService.create(contactData as any);

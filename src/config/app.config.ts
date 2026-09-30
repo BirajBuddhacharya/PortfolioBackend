@@ -12,6 +12,9 @@ export interface AppConfig {
   googleClientSecret: string;
   googleCallbackUrl: string;
   frontendUrl: string;
+  ignoreTurnstile: boolean;
+  resendApiKey: string;
+  contactEmail: string;
 }
 
 export default registerAs('app', () => ({
@@ -26,6 +29,9 @@ export default registerAs('app', () => ({
   contactEmail: process.env.CONTACT_EMAIL ?? '',
   googleClientId: process.env.GOOGLE_CLIENT_ID ?? '',
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
-  googleCallbackUrl: process.env.GOOGLE_CALLBACK_URL ?? 'http://localhost:3007/api/v1/auth/google/callback',
+  googleCallbackUrl:
+    process.env.GOOGLE_CALLBACK_URL ??
+    'http://localhost:3007/api/v1/auth/google/callback',
   frontendUrl: process.env.FRONTEND_URL ?? 'http://localhost:3000',
+  ignoreTurnstile: process.env.IGNORE_TURNSTILE?.toLowerCase() === 'true',
 }));
