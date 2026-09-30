@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
 import { Readable } from 'stream';
@@ -15,6 +19,15 @@ export class UploadService {
       cloud_name: config.get('CLOUDINARY_CLOUD_NAME'),
       api_key: config.get('CLOUDINARY_API_KEY'),
       api_secret: config.get('CLOUDINARY_API_SECRET'),
+    });
+  }
+
+  deleteFile(publicId: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader.destroy(publicId, (err) => {
+        if (err) return reject(err);
+        resolve();
+      });
     });
   }
 
@@ -67,7 +80,8 @@ export class UploadService {
 
     const parts = new URL(cloudinaryUrl).pathname.split('/');
     const uploadIdx = parts.indexOf('upload');
-    if (uploadIdx === -1) throw new BadRequestException('Invalid Cloudinary URL');
+    if (uploadIdx === -1)
+      throw new BadRequestException('Invalid Cloudinary URL');
 
     let idStart = uploadIdx + 1;
     if (parts[idStart]?.match(/^v\d+$/)) idStart++;
@@ -90,7 +104,9 @@ export class UploadService {
       zip = Buffer.from(upstream.data);
     } catch {
       // Swallow the axios error object — it holds the http Agent and breaks the exceptions filter
-      throw new NotFoundException('Resume PDF could not be retrieved from storage');
+      throw new NotFoundException(
+        'Resume PDF could not be retrieved from storage',
+      );
     }
 
     const pdf = extractSoleZipEntry(zip);
@@ -105,7 +121,8 @@ export class UploadService {
 // Swap for a real unzip dep if archives ever hold more than one file.
 function extractSoleZipEntry(zip: Buffer): Buffer {
   const eocd = zip.lastIndexOf(EOCD_SIGNATURE);
-  if (eocd === -1) throw new BadRequestException('Malformed archive from storage');
+  if (eocd === -1)
+    throw new BadRequestException('Malformed archive from storage');
 
   // Local header sizes are zeroed when a data descriptor is used, so read the central directory
   const cdOffset = zip.readUInt32LE(eocd + 16);

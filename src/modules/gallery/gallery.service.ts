@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
+import { UploadService } from '../upload/upload.service';
 
 type CreateGalleryInput = {
   publicId: string;
@@ -15,7 +16,10 @@ type CreateGalleryInput = {
 
 @Injectable()
 export class GalleryService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly uploadService: UploadService,
+  ) {}
 
   create(data: CreateGalleryInput) {
     return this.prisma.gallery.create({ data });
@@ -28,7 +32,9 @@ export class GalleryService {
     });
   }
 
-  remove(id: string) {
-    return this.prisma.gallery.delete({ where: { id } });
+  async remove(id: string) {
+    const item = await this.prisma.gallery.findFirstOrThrow({ where: { id } });
+    await this.uploadService.deleteFile(item.publicId);
+    await this.prisma.gallery.delete({ where: { id } });
   }
 }
