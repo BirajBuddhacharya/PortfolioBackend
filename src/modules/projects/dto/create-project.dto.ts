@@ -38,7 +38,9 @@ export class CreateProjectDto {
   @IsString()
   summary?: string;
 
-  @ApiPropertyOptional({ description: 'Markdown body rendered on the detail page' })
+  @ApiPropertyOptional({
+    description: 'Markdown body rendered on the detail page',
+  })
   @IsOptional()
   @IsString()
   content?: string;
@@ -48,9 +50,8 @@ export class CreateProjectDto {
   @IsString()
   year?: string;
 
-  @ApiPropertyOptional({ enum: ['ML', 'Web app', 'CLI tool', 'AI product'] })
+  @ApiProperty({ required: false, example: 'ML' })
   @IsOptional()
-  @IsIn(['ML', 'Web app', 'CLI tool', 'AI product'])
   kind?: string;
 
   @ApiPropertyOptional({ enum: ['live', 'archived'], default: 'live' })
