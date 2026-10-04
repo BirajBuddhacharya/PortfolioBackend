@@ -26,11 +26,11 @@ export class CreateBlogPostDto {
   @IsString()
   content?: string;
 
-  @ApiPropertyOptional({ type: [String] })
+  @ApiPropertyOptional({ type: [String], description: 'Tag IDs to connect' })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
-  tags?: string[];
+  tagIds?: string[];
 
   @ApiPropertyOptional({ enum: ['draft', 'published'], default: 'draft' })
   @IsOptional()

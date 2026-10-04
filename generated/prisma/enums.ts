@@ -17,6 +17,14 @@ export const ContactStatusEnum = {
 export type ContactStatusEnum = (typeof ContactStatusEnum)[keyof typeof ContactStatusEnum]
 
 
+export const ProjectStatus = {
+  ARCHIVED: 'ARCHIVED',
+  ACTIVE: 'ACTIVE'
+} as const
+
+export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus]
+
+
 export const ResumeSectionEnum = {
   EXPERIENCE: 'EXPERIENCE',
   EDUCATION: 'EDUCATION',

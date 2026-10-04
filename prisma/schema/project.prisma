@@ -1,6 +1,10 @@
 // Owned by: src/modules/projects
 // `content` is the markdown body rendered on the project detail page —
 // it replaces the old structured `sections` array.
+enum ProjectStatus {
+  ARCHIVED
+  ACTIVE
+}
 
 model Project {
   id          String    @id @default(cuid())
@@ -10,9 +14,7 @@ model Project {
   summary     String?   @db.Text
   content     String?   @db.Text
   year        String?
-  kind        String?
-  status      String    @default("live")
-  stack       String[]
+  status      ProjectStatus  @default(ACTIVE)
   gallery     String[]
   metrics     Json      @default("[]")
   live        String?
@@ -24,6 +26,7 @@ model Project {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
+  tags        Tag[]
 
   @@map("projects")
 }

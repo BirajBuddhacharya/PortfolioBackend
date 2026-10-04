@@ -1,0 +1,12 @@
+// Owned by: src/modules/tags
+
+model Tag {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  color     String?
+  projects  Project[]
+  blogPosts BlogPost[]
+  createdAt DateTime   @default(now())
+
+  @@map("tags")
+}

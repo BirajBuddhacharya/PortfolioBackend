@@ -1,22 +1,28 @@
-import { ApiProperty, ApiQuery } from '@nestjs/swagger';
-import { IsOptional, IsString, isString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { ProjectStatus } from 'generated/prisma/enums';
 
 export class GetProjectsDto {
   @IsString()
   @IsOptional()
   @ApiProperty({
     required: false,
-    description: 'Search query for projects',
+    description: 'Search by title',
     example: 'Tathyanka',
   })
   search: string;
 
   @IsString()
   @IsOptional()
+  @ApiProperty({ required: false, description: 'Filter by tag ID' })
+  tagId: string;
+
+  @IsEnum(ProjectStatus)
+  @IsOptional()
   @ApiProperty({
     required: false,
-    description: 'Search query for projects',
-    example: 'live',
+    description: 'Stauts of project',
+    enum: ProjectStatus,
   })
-  status: string;
+  status?: ProjectStatus;
 }

@@ -20,55 +20,35 @@ import { PaginationSortQuery } from '../../decorators/pagination.decorator';
 import { RequireSwaggerPaginationSort } from '../../decorators/swagger-pagination.decorator';
 import { PaginationDto } from '../../common/dto/pagination.dto';
 import { GetProjectsDto } from './dto/get-projects.dto';
+import { ProjectStatus } from 'generated/prisma/enums';
 
 @ApiTags('Projects')
 @ApiBearerAuth()
-@Controller('projects')
-export class ProjectController {
+@Controller('public/projects')
+@SkipAuthCheck()
+export class PublicProjectController {
   constructor(private projectService: ProjectService) {}
 
   @Get()
-  @SkipAuthCheck()
   @RequireSwaggerPaginationSort()
   async findAll(
     @PaginationSortQuery() pagination: PaginationDto,
     @Query() query: GetProjectsDto,
   ) {
     return new ResponseDto(
-      await this.projectService.findAll(pagination, query.search, query.status, query.tagId),
+      await this.projectService.findAll(
+        pagination,
+        query.search,
+        ProjectStatus.ACTIVE,
+        query.tagId,
+      ),
     );
   }
 
   @Get(':slug')
-  @SkipAuthCheck()
   async findOne(@Param('slug') slug: string) {
-    return new ResponseDto(await this.projectService.findBySlug(slug));
-  }
-
-  @Post()
-  @SetRoles(RoleEnum.ADMIN)
-  async create(@Body() dto: CreateProjectDto) {
     return new ResponseDto(
-      await this.projectService.create(dto),
-      'Project created',
-    );
-  }
-
-  @Patch(':id')
-  @SetRoles(RoleEnum.ADMIN)
-  async update(@Param('id') id: string, @Body() dto: UpdateProjectDto) {
-    return new ResponseDto(
-      await this.projectService.update(id, dto),
-      'Project updated',
-    );
-  }
-
-  @Delete(':id')
-  @SetRoles(RoleEnum.ADMIN)
-  async remove(@Param('id') id: string) {
-    return new ResponseDto(
-      await this.projectService.softDelete(id),
-      'Project deleted',
+      await this.projectService.findBySlug(slug, ProjectStatus.ACTIVE),
     );
   }
 }

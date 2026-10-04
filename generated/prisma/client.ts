@@ -80,6 +80,11 @@ export type Project = Prisma.ProjectModel
  */
 export type ResumeItem = Prisma.ResumeItemModel
 /**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel
+/**
  * Model User
  * 
  */

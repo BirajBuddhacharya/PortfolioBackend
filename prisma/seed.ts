@@ -1,8 +1,12 @@
 import 'dotenv/config';
-import { PrismaClient, RoleEnum, ResumeSectionEnum } from '../generated/prisma/client.js';
+import {
+  PrismaClient,
+  RoleEnum,
+  ResumeSectionEnum,
+  ProjectStatus,
+} from '../generated/prisma/client.js';
 import { PrismaPg } from '@prisma/adapter-pg';
 import * as bcrypt from 'bcrypt';
-
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -53,8 +57,16 @@ async function seedProfile() {
         { value: '25+', label: 'technologies' },
       ],
       ticker: [
-        'Python', 'FastAPI', 'React', 'PyTorch', 'LangChain', 'PostgreSQL',
-        'Docker', 'TypeScript', 'Next.js', 'TensorFlow',
+        'Python',
+        'FastAPI',
+        'React',
+        'PyTorch',
+        'LangChain',
+        'PostgreSQL',
+        'Docker',
+        'TypeScript',
+        'Next.js',
+        'TensorFlow',
       ],
       name: 'Biraj Buddhacharya',
       avatarImage: null,
@@ -78,10 +90,30 @@ async function seedContactLinks() {
   if (await prisma.contactLink.count()) return;
   await prisma.contactLink.createMany({
     data: [
-      { label: 'Email', value: 'hello@example.com', href: 'mailto:hello@example.com', order: 0 },
-      { label: 'GitHub', value: 'github.com/example', href: 'https://github.com/example', order: 1 },
-      { label: 'LinkedIn', value: 'linkedin.com/in/example', href: 'https://linkedin.com/in/example', order: 2 },
-      { label: 'Twitter', value: '@example', href: 'https://twitter.com/example', order: 3 },
+      {
+        label: 'Email',
+        value: 'hello@example.com',
+        href: 'mailto:hello@example.com',
+        order: 0,
+      },
+      {
+        label: 'GitHub',
+        value: 'github.com/example',
+        href: 'https://github.com/example',
+        order: 1,
+      },
+      {
+        label: 'LinkedIn',
+        value: 'linkedin.com/in/example',
+        href: 'https://linkedin.com/in/example',
+        order: 2,
+      },
+      {
+        label: 'Twitter',
+        value: '@example',
+        href: 'https://twitter.com/example',
+        order: 3,
+      },
     ],
   });
   console.log('Contact links seeded');
@@ -92,9 +124,12 @@ async function seedResumeItems() {
   await prisma.resumeItem.createMany({
     data: [
       {
-        section: ResumeSectionEnum.EXPERIENCE, order: 0,
-        title: 'ML Engineer & Full-stack Dev', organization: 'DalloTech',
-        period: '2023 — present', location: 'Kathmandu, NPL',
+        section: ResumeSectionEnum.EXPERIENCE,
+        order: 0,
+        title: 'ML Engineer & Full-stack Dev',
+        organization: 'DalloTech',
+        period: '2023 — present',
+        location: 'Kathmandu, NPL',
         points: [
           'Building core AI R&D for an analytics platform — intent recognition, recommendation engine, and query generation.',
           'Developed a full ERP system covering inventory, billing, and reporting.',
@@ -102,9 +137,12 @@ async function seedResumeItems() {
         ],
       },
       {
-        section: ResumeSectionEnum.EXPERIENCE, order: 1,
-        title: 'Freelance Developer', organization: 'Self-employed',
-        period: '2022 — 2023', location: 'Remote',
+        section: ResumeSectionEnum.EXPERIENCE,
+        order: 1,
+        title: 'Freelance Developer',
+        organization: 'Self-employed',
+        period: '2022 — 2023',
+        location: 'Remote',
         points: [
           'Built an event management platform with real-time ticketing and QR-code check-in.',
           'Developed an ordering system with recommendation features for a restaurant chain.',
@@ -112,39 +150,72 @@ async function seedResumeItems() {
         ],
       },
       {
-        section: ResumeSectionEnum.EDUCATION, order: 0,
-        title: 'B.Sc. Computer Science', organization: 'Tribhuvan University',
-        period: '2019 — 2023', location: 'Kathmandu, NPL',
+        section: ResumeSectionEnum.EDUCATION,
+        order: 0,
+        title: 'B.Sc. Computer Science',
+        organization: 'Tribhuvan University',
+        period: '2019 — 2023',
+        location: 'Kathmandu, NPL',
         body: 'Focused on machine learning, distributed systems, and software engineering practices.',
       },
       {
-        section: ResumeSectionEnum.CERTIFICATION, order: 0,
-        title: 'Deep Learning Specialization', organization: 'DeepLearning.AI',
-        period: '2022', body: 'Neural networks, CNNs, sequence models.',
+        section: ResumeSectionEnum.CERTIFICATION,
+        order: 0,
+        title: 'Deep Learning Specialization',
+        organization: 'DeepLearning.AI',
+        period: '2022',
+        body: 'Neural networks, CNNs, sequence models.',
       },
       {
-        section: ResumeSectionEnum.CERTIFICATION, order: 1,
-        title: 'AWS Certified Developer', organization: 'Amazon Web Services',
+        section: ResumeSectionEnum.CERTIFICATION,
+        order: 1,
+        title: 'AWS Certified Developer',
+        organization: 'Amazon Web Services',
         period: '2023',
       },
-      { section: ResumeSectionEnum.SKILL, order: 0, title: 'Languages', body: 'Python, TypeScript, Go' },
-      { section: ResumeSectionEnum.SKILL, order: 1, title: 'ML/AI', body: 'PyTorch, scikit-learn, LangChain, TensorFlow' },
-      { section: ResumeSectionEnum.SKILL, order: 2, title: 'Backend & Infra', body: 'FastAPI, NestJS, PostgreSQL, Docker, Redis' },
+      {
+        section: ResumeSectionEnum.SKILL,
+        order: 0,
+        title: 'Languages',
+        body: 'Python, TypeScript, Go',
+      },
+      {
+        section: ResumeSectionEnum.SKILL,
+        order: 1,
+        title: 'ML/AI',
+        body: 'PyTorch, scikit-learn, LangChain, TensorFlow',
+      },
+      {
+        section: ResumeSectionEnum.SKILL,
+        order: 2,
+        title: 'Backend & Infra',
+        body: 'FastAPI, NestJS, PostgreSQL, Docker, Redis',
+      },
     ],
   });
   console.log('Resume items seeded');
+}
+
+function tagConnect(names: string[]) {
+  return {
+    connectOrCreate: names.map((name) => ({
+      where: { name },
+      create: { name },
+    })),
+  };
 }
 
 async function seedBlogPosts() {
   if (await prisma.blogPost.count()) return;
   const now = Date.now();
   const day = 86400000;
-  await prisma.blogPost.createMany({
-    data: [
-      {
+  await Promise.all([
+    prisma.blogPost.create({
+      data: {
         slug: 'load-balancing-strategies-in-go',
         title: 'Load balancing strategies in Go',
-        excerpt: 'A walkthrough of round-robin, least-connections, and consistent hashing implemented from scratch in Go.',
+        excerpt:
+          'A walkthrough of round-robin, least-connections, and consistent hashing implemented from scratch in Go.',
         content: `Load balancing distributes traffic across a pool of backends. The strategy you pick decides how evenly that traffic lands — and how badly things degrade when one backend gets slow.
 
 ## Round robin
@@ -177,13 +248,17 @@ When backends hold per-key state, you want the same key to land on the same back
 ## Picking one
 
 Start with round robin. Move to least connections when request costs diverge. Reach for consistent hashing only when backends are stateful — it is the most complex of the three and the easiest to get subtly wrong.`,
-        tags: ['go', 'systems', 'networking'], status: 'published',
+        tags: tagConnect(['go', 'systems', 'networking']),
+        status: 'published',
         publishedAt: new Date(now - 20 * day),
       },
-      {
+    }),
+    prisma.blogPost.create({
+      data: {
         slug: 'e-governance-in-nepal-what-actually-ships',
         title: 'E-governance in Nepal: what actually ships',
-        excerpt: 'Notes from building government-facing platforms in a low-bandwidth, high-friction environment.',
+        excerpt:
+          'Notes from building government-facing platforms in a low-bandwidth, high-friction environment.',
         content: `Government software has different constraints than consumer software. The users are not optional, the network is not fast, and the failure mode is someone not getting a service they are entitled to.
 
 ## The bandwidth floor
@@ -203,13 +278,17 @@ Authentication is where most of these projects stall. Citizens have inconsistent
 ## What actually ships
 
 The projects that land share a pattern: narrow scope, one workflow end to end, and an offline fallback that staff genuinely use. The ones that stall try to digitise an entire department at once.`,
-        tags: ['policy', 'nepal', 'product'], status: 'published',
+        tags: tagConnect(['policy', 'nepal', 'product']),
+        status: 'published',
         publishedAt: new Date(now - 14 * day),
       },
-      {
+    }),
+    prisma.blogPost.create({
+      data: {
         slug: 'notes-on-intent-recognition-pipelines',
         title: 'Notes on intent recognition pipelines',
-        excerpt: 'How we structured an intent classifier + slot filler for a client analytics platform.',
+        excerpt:
+          'How we structured an intent classifier + slot filler for a client analytics platform.',
         content: `Intent recognition sits upstream of most conversational or query-driven systems. Get it wrong and every component downstream inherits the mistake.
 
 ## Shape of the pipeline
@@ -237,13 +316,17 @@ Slots are where accuracy quietly dies. \`last quarter\` and \`Q3\` may mean the 
 ## Thresholds beat model size
 
 The single biggest quality win was not a bigger model. It was tuning the confidence threshold and making the clarifying question good.`,
-        tags: ['ml', 'nlp'], status: 'published',
+        tags: tagConnect(['ml', 'nlp']),
+        status: 'published',
         publishedAt: new Date(now - 7 * day),
       },
-      {
+    }),
+    prisma.blogPost.create({
+      data: {
         slug: 'soft-deletes-in-prisma-without-the-footguns',
         title: 'Soft deletes in Prisma without the footguns',
-        excerpt: 'A pattern for consistent soft-delete filtering across every model in a NestJS + Prisma backend.',
+        excerpt:
+          'A pattern for consistent soft-delete filtering across every model in a NestJS + Prisma backend.',
         content: `Soft deletes are simple until every query has to remember the filter. Miss it once and deleted rows leak back into a list — usually in the one place nobody tested.
 
 ## The footgun
@@ -276,13 +359,17 @@ A shared base service means a new model gets the behaviour for free, and there i
 ## When not to use it
 
 If nothing ever restores the record and no audit trail needs it, delete the row. Soft deletes are a feature with ongoing cost, not a free safety net.`,
-        tags: ['prisma', 'nestjs', 'backend'], status: 'published',
+        tags: tagConnect(['prisma', 'nestjs', 'backend']),
+        status: 'published',
         publishedAt: new Date(now - 2 * day),
       },
-      {
+    }),
+    prisma.blogPost.create({
+      data: {
         slug: 'draft-rethinking-the-admin-dashboard',
         title: 'Draft: rethinking the admin dashboard',
-        excerpt: 'Work-in-progress notes on what an admin panel actually needs versus what it accumulates.',
+        excerpt:
+          'Work-in-progress notes on what an admin panel actually needs versus what it accumulates.',
         content: `Every admin panel starts simple and grows a junk drawer of toggles. Notes toward a rebuild.
 
 ## What it accumulates
@@ -298,25 +385,32 @@ The honest list is short: find a thing, edit a thing, see what changed. Most of 
 ## Open question
 
 Does the dashboard earn its place at all, or should landing go straight to the content list?`,
-        tags: ['product'], status: 'draft', publishedAt: null,
+        tags: tagConnect(['product']),
+        status: 'draft',
+        publishedAt: null,
       },
-    ],
-  });
+    }),
+  ]);
   console.log('Blog posts seeded');
 }
 
 async function seedProjects() {
   if (await prisma.project.count()) return;
-  await prisma.project.createMany({
-    data: [
-      {
+  await Promise.all([
+    prisma.project.create({
+      data: {
         slug: 'riskvision',
         title: 'RiskVision',
-        blurb: 'Predictive ML model with 80%+ accuracy for assessing stroke and heart disease risk from clinical data.',
-        summary: 'RiskVision predicts stroke and heart disease risk using clinical features. The model was trained on public health datasets and achieves over 80% accuracy on held-out test data.',
-        stack: ['Python', 'PyTorch', 'FastAPI', 'React'],
-        year: '2024', kind: 'ML', status: 'live',
-        coverHeight: 260, coverAccent: '#FF6B6B', coverColor: '#141418',
+        blurb:
+          'Predictive ML model with 80%+ accuracy for assessing stroke and heart disease risk from clinical data.',
+        summary:
+          'RiskVision predicts stroke and heart disease risk using clinical features. The model was trained on public health datasets and achieves over 80% accuracy on held-out test data.',
+        tags: tagConnect(['ML', 'Python', 'PyTorch']),
+        year: '2024',
+        status: ProjectStatus.ACTIVE,
+        coverHeight: 260,
+        coverAccent: '#FF6B6B',
+        coverColor: '#141418',
         live: 'https://github.com/BirajBuddhacharya/RiskVision',
         repo: 'https://github.com/BirajBuddhacharya/RiskVision',
         metrics: [
@@ -348,16 +442,28 @@ model.fit(X_res, y_res)
 ## Outcome
 
 Deployed as a FastAPI service with a React frontend. The model consistently outperformed the baseline logistic regression by **14 percentage points**, holding above 80% accuracy on held-out test data.`,
-        gallery: ['Model architecture', 'ROC curves', 'Feature importance', 'UI screenshot'],
+        gallery: [
+          'Model architecture',
+          'ROC curves',
+          'Feature importance',
+          'UI screenshot',
+        ],
       },
-      {
+    }),
+    prisma.project.create({
+      data: {
         slug: 'syncbeats',
         title: 'SyncBeats',
-        blurb: 'CLI tool that syncs YouTube playlists and local music libraries using yt-dlp with smart deduplication.',
-        summary: 'SyncBeats is a command-line utility that keeps a local music folder in sync with YouTube playlists, handling duplicates and metadata tagging automatically.',
-        stack: ['Python', 'yt-dlp', 'Click', 'SQLite'],
-        year: '2023', kind: 'CLI tool', status: 'live',
-        coverHeight: 160, coverAccent: '#6E6E78', coverColor: '#0E1418',
+        blurb:
+          'CLI tool that syncs YouTube playlists and local music libraries using yt-dlp with smart deduplication.',
+        summary:
+          'SyncBeats is a command-line utility that keeps a local music folder in sync with YouTube playlists, handling duplicates and metadata tagging automatically.',
+        tags: tagConnect(['CLI tool', 'Python']),
+        year: '2023',
+        status: ProjectStatus.ACTIVE,
+        coverHeight: 160,
+        coverAccent: '#6E6E78',
+        coverColor: '#0E1418',
         live: 'https://github.com/BirajBuddhacharya/SyncBeats',
         repo: 'https://github.com/BirajBuddhacharya/SyncBeats',
         metrics: [
@@ -385,14 +491,21 @@ Dedup works on video ID first, then falls back to normalized title + duration ma
 Used daily for personal music management. Open-sourced and picked up by roughly **100 users** on GitHub.`,
         gallery: ['CLI output', 'Config file', 'Before/after sync'],
       },
-      {
+    }),
+    prisma.project.create({
+      data: {
         slug: 'abc-books',
         title: 'ABC Books',
-        blurb: 'Full-stack e-commerce platform with responsive design, cart system, and streamlined checkout flow.',
-        summary: 'ABC Books is a full-featured online bookstore with product catalog, search, cart, and order management.',
-        stack: ['Django', 'React', 'PostgreSQL', 'Tailwind'],
-        year: '2023', kind: 'Web app', status: 'live',
-        coverHeight: 200, coverAccent: '#7C3AED', coverColor: '#130E18',
+        blurb:
+          'Full-stack e-commerce platform with responsive design, cart system, and streamlined checkout flow.',
+        summary:
+          'ABC Books is a full-featured online bookstore with product catalog, search, cart, and order management.',
+        tags: tagConnect(['Web app', 'Django', 'React']),
+        year: '2023',
+        status: ProjectStatus.ACTIVE,
+        coverHeight: 200,
+        coverAccent: '#7C3AED',
+        coverColor: '#130E18',
         live: 'https://github.com/BirajBuddhacharya/ABC-Books',
         repo: 'https://github.com/BirajBuddhacharya/ABC-Books',
         metrics: [
@@ -418,15 +531,23 @@ Django REST Framework backend with a React SPA frontend:
 Launched and used in production. Reduced order processing time by **60%** compared to the manual workflow, with 500+ products live and page loads consistently under 1.2 seconds.`,
         gallery: ['Home page', 'Product detail', 'Cart', 'Order history'],
       },
-      {
+    }),
+    prisma.project.create({
+      data: {
         slug: 'eventpulse',
         title: 'EventPulse',
-        blurb: 'Real-time event management platform with QR-code check-in, ticket sales, and organizer dashboard.',
-        summary: 'EventPulse handles the full lifecycle of ticketed events — from creation and sales to check-in on the day.',
-        stack: ['FastAPI', 'React', 'PostgreSQL', 'Redis'],
-        year: '2023', kind: 'Web app', status: 'live',
-        coverHeight: 300, coverAccent: '#0EA5E9', coverColor: '#0C1418',
-        live: null, repo: null,
+        blurb:
+          'Real-time event management platform with QR-code check-in, ticket sales, and organizer dashboard.',
+        summary:
+          'EventPulse handles the full lifecycle of ticketed events — from creation and sales to check-in on the day.',
+        tags: tagConnect(['Web app', 'FastAPI', 'React']),
+        year: '2023',
+        status: ProjectStatus.ACTIVE,
+        coverHeight: 300,
+        coverAccent: '#0EA5E9',
+        coverColor: '#0C1418',
+        live: null,
+        repo: null,
         metrics: [
           { value: '2k+', label: 'tickets issued' },
           { value: '< 300ms', label: 'QR scan time' },
@@ -451,15 +572,23 @@ FastAPI backend with JWT auth, Stripe for payments, and signed QR code generatio
 Average check-in time dropped from 4 minutes to **under 30 seconds**. Zero oversold events since launch across 10+ events and 2,000+ tickets issued.`,
         gallery: ['Dashboard', 'Ticket page', 'QR scanner', 'Analytics'],
       },
-      {
+    }),
+    prisma.project.create({
+      data: {
         slug: 'tathyanaka',
         title: 'Tathyanaka',
-        blurb: 'AI-powered analytics platform that turns raw data tables into natural-language insights and charts.',
-        summary: 'Tathyanaka lets non-technical users query their data in plain English and receive structured charts and summaries.',
-        stack: ['Python', 'LangChain', 'FastAPI', 'React', 'PostgreSQL'],
-        year: '2024', kind: 'AI product', status: 'live',
-        coverHeight: 220, coverAccent: '#10B981', coverColor: '#0E1814',
-        live: null, repo: null,
+        blurb:
+          'AI-powered analytics platform that turns raw data tables into natural-language insights and charts.',
+        summary:
+          'Tathyanaka lets non-technical users query their data in plain English and receive structured charts and summaries.',
+        tags: tagConnect(['AI product', 'Python', 'LangChain']),
+        year: '2024',
+        status: ProjectStatus.ACTIVE,
+        coverHeight: 220,
+        coverAccent: '#10B981',
+        coverColor: '#0E1814',
+        live: null,
+        repo: null,
         metrics: [
           { value: 'NL→SQL', label: 'query engine' },
           { value: '< 2s', label: 'avg response' },
@@ -489,17 +618,30 @@ GROUP BY region ORDER BY revenue DESC;
 ## Outcome
 
 In production at DalloTech. Reduced data request turnaround from **2 days to under 5 minutes**, with average response time below 2 seconds across 5+ data connectors.`,
-        gallery: ['Query interface', 'Chart output', 'Schema browser', 'History'],
+        gallery: [
+          'Query interface',
+          'Chart output',
+          'Schema browser',
+          'History',
+        ],
       },
-      {
+    }),
+    prisma.project.create({
+      data: {
         slug: 'quickhire',
         title: 'QuickHire',
-        blurb: 'Job portal with AI-assisted resume screening and match-scoring for faster recruiter workflows.',
-        summary: 'QuickHire speeds up recruiting by automatically ranking applicants against job descriptions using TF-IDF and semantic similarity.',
-        stack: ['Django', 'React', 'PostgreSQL', 'scikit-learn'],
-        year: '2022', kind: 'Web app', status: 'archived',
-        coverHeight: 180, coverAccent: '#F59E0B', coverColor: '#18140E',
-        live: null, repo: null,
+        blurb:
+          'Job portal with AI-assisted resume screening and match-scoring for faster recruiter workflows.',
+        summary:
+          'QuickHire speeds up recruiting by automatically ranking applicants against job descriptions using TF-IDF and semantic similarity.',
+        tags: tagConnect(['Web app', 'ML', 'Django']),
+        year: '2022',
+        status: ProjectStatus.ARCHIVED,
+        coverHeight: 180,
+        coverAccent: '#F59E0B',
+        coverColor: '#18140E',
+        live: null,
+        repo: null,
         metrics: [
           { value: '60%', label: 'screening time saved' },
           { value: '500+', label: 'resumes processed' },
@@ -525,8 +667,8 @@ Cut initial screening time by **60%** across 500+ resumes processed. Recruiters 
 > Archived — the client moved to an off-the-shelf ATS, but the ranking approach held up well against their new vendor's built-in scoring.`,
         gallery: ['Job listing', 'Applicant list', 'Resume viewer'],
       },
-    ],
-  });
+    }),
+  ]);
   console.log('Projects seeded');
 }
 
@@ -545,7 +687,10 @@ async function seedDashboardSnapshot() {
       ],
       activity: [
         { text: 'New contact message received', time: '2h ago' },
-        { text: 'Blog post "Load balancing strategies in Go" published', time: '1d ago' },
+        {
+          text: 'Blog post "Load balancing strategies in Go" published',
+          time: '1d ago',
+        },
         { text: 'Project "RiskVision" updated', time: '3d ago' },
         { text: 'New contact message received', time: '5d ago' },
       ],

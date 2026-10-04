@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsArray,
+  IsEnum,
   IsIn,
   IsInt,
   IsOptional,
@@ -10,6 +11,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { ProjectStatus } from 'generated/prisma/enums';
 
 export class MetricDto {
   @IsString()
@@ -50,20 +52,16 @@ export class CreateProjectDto {
   @IsString()
   year?: string;
 
-  @ApiProperty({ required: false, example: 'ML' })
-  @IsOptional()
-  kind?: string;
-
   @ApiPropertyOptional({ enum: ['live', 'archived'], default: 'live' })
   @IsOptional()
-  @IsIn(['live', 'archived'])
-  status?: string;
+  @IsEnum(ProjectStatus)
+  status?: ProjectStatus;
 
-  @ApiPropertyOptional({ type: [String] })
+  @ApiPropertyOptional({ type: [String], description: 'Tag IDs to connect' })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
-  stack?: string[];
+  tagIds?: string[];
 
   @ApiPropertyOptional({ type: [String] })
   @IsOptional()
@@ -84,7 +82,6 @@ export class CreateProjectDto {
   live?: string;
 
   @ApiPropertyOptional()
-  // @IsUrl()
   @IsOptional()
   repo?: string;
 

@@ -59,6 +59,7 @@ export const ModelName = {
   Profile: 'Profile',
   Project: 'Project',
   ResumeItem: 'ResumeItem',
+  Tag: 'Tag',
   User: 'User'
 } as const
 
@@ -84,7 +85,6 @@ export const BlogPostScalarFieldEnum = {
   title: 'title',
   excerpt: 'excerpt',
   content: 'content',
-  tags: 'tags',
   status: 'status',
   coverImage: 'coverImage',
   publishedAt: 'publishedAt',
@@ -179,9 +179,7 @@ export const ProjectScalarFieldEnum = {
   summary: 'summary',
   content: 'content',
   year: 'year',
-  kind: 'kind',
   status: 'status',
-  stack: 'stack',
   gallery: 'gallery',
   metrics: 'metrics',
   live: 'live',
@@ -214,6 +212,16 @@ export const ResumeItemScalarFieldEnum = {
 } as const
 
 export type ResumeItemScalarFieldEnum = (typeof ResumeItemScalarFieldEnum)[keyof typeof ResumeItemScalarFieldEnum]
+
+
+export const TagScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  color: 'color',
+  createdAt: 'createdAt'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
