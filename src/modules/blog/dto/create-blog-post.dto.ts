@@ -2,10 +2,11 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsArray,
   IsDateString,
-  IsIn,
+  IsEnum,
   IsOptional,
   IsString,
 } from 'class-validator';
+import { BlogStatus } from 'generated/prisma/enums';
 
 export class CreateBlogPostDto {
   @ApiProperty()
@@ -21,7 +22,9 @@ export class CreateBlogPostDto {
   @IsString()
   excerpt?: string;
 
-  @ApiPropertyOptional({ description: 'Markdown body rendered on the post page' })
+  @ApiPropertyOptional({
+    description: 'Markdown body rendered on the post page',
+  })
   @IsOptional()
   @IsString()
   content?: string;
@@ -32,10 +35,10 @@ export class CreateBlogPostDto {
   @IsString({ each: true })
   tagIds?: string[];
 
-  @ApiPropertyOptional({ enum: ['draft', 'published'], default: 'draft' })
+  @ApiPropertyOptional({ enum: BlogStatus, default: BlogStatus.DRAFT })
   @IsOptional()
-  @IsIn(['draft', 'published'])
-  status?: string;
+  @IsEnum(BlogStatus)
+  status?: BlogStatus;
 
   @ApiPropertyOptional()
   @IsOptional()

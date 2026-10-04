@@ -21,7 +21,10 @@ export class AuthController {
   @Post('login')
   @SkipAuthCheck()
   async login(@Body() dto: LoginDto) {
-    return new ResponseDto(await this.authService.login(dto), 'Login successful');
+    return new ResponseDto(
+      await this.authService.login(dto),
+      'Login successful',
+    );
   }
 
   @Get('me')
@@ -40,7 +43,9 @@ export class AuthController {
   @UseGuards(AuthGuard('google'))
   async googleCallback(@CurrentUser() user: any, @Res() res: Response) {
     const { accessToken } = await this.authService.googleLogin(user);
-    const frontendUrl = this.configService.get('app', { infer: true })!.frontendUrl;
+    const frontendUrl = this.configService.get('app', {
+      infer: true,
+    })!.frontendUrl;
     res.redirect(`${frontendUrl}/admin/login?token=${accessToken}`);
   }
 }

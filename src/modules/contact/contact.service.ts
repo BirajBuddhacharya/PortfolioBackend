@@ -45,7 +45,7 @@ export class ContactService {
     }
 
     const { turnstileToken: _, ...contactData } = dto;
-    const contact = await this.contactBaseService.create(contactData as any);
+    const contact = await this.contactBaseService.create(contactData);
 
     // send email notification if enabled
     const profile = await this.prisma.profile.findUnique({

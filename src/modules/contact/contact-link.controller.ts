@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ContactLinkService } from './contact-link.service';
 import { CreateContactLinkDto } from './dto/create-contact-link.dto';
@@ -23,18 +31,27 @@ export class ContactLinkController {
   @Post()
   @SetRoles(RoleEnum.ADMIN)
   async create(@Body() dto: CreateContactLinkDto) {
-    return new ResponseDto(await this.contactLinkService.create(dto), 'Link created');
+    return new ResponseDto(
+      await this.contactLinkService.create(dto),
+      'Link created',
+    );
   }
 
   @Patch(':id')
   @SetRoles(RoleEnum.ADMIN)
   async update(@Param('id') id: string, @Body() dto: UpdateContactLinkDto) {
-    return new ResponseDto(await this.contactLinkService.update(id, dto), 'Link updated');
+    return new ResponseDto(
+      await this.contactLinkService.update(id, dto),
+      'Link updated',
+    );
   }
 
   @Delete(':id')
   @SetRoles(RoleEnum.ADMIN)
   async remove(@Param('id') id: string) {
-    return new ResponseDto(await this.contactLinkService.remove(id), 'Link deleted');
+    return new ResponseDto(
+      await this.contactLinkService.remove(id),
+      'Link deleted',
+    );
   }
 }

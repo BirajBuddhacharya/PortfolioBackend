@@ -35,7 +35,10 @@ export class UserController {
 
   @Patch('me')
   async updateMe(@Req() req: any, @Body() dto: UpdateMeDto) {
-    return new ResponseDto(await this.userService.updateSelf(req.user.id, dto), 'Profile updated');
+    return new ResponseDto(
+      await this.userService.updateSelf(req.user.id, dto),
+      'Profile updated',
+    );
   }
 
   @Get(':id')
@@ -53,6 +56,9 @@ export class UserController {
   @Delete(':id')
   @SetRoles(RoleEnum.ADMIN)
   async remove(@Param('id', ParseIntPipe) id: number) {
-    return new ResponseDto(await this.userService.softDelete(id), 'User deleted');
+    return new ResponseDto(
+      await this.userService.softDelete(id),
+      'User deleted',
+    );
   }
 }

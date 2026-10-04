@@ -28,7 +28,8 @@ export class ResumeService {
 
   async getResumePdfUrl(): Promise<string> {
     const profile = await this.prisma.profile.findFirst();
-    if (!profile?.resumePdfUrl) throw new NotFoundException('No resume PDF configured');
+    if (!profile?.resumePdfUrl)
+      throw new NotFoundException('No resume PDF configured');
     return profile.resumePdfUrl;
   }
 
@@ -59,12 +60,15 @@ export class ResumeService {
   }
 
   createItem(dto: CreateResumeItemDto) {
-    return this.resumeItemBaseService.create({ ...dto, points: dto.points ?? [] });
+    return this.resumeItemBaseService.create({
+      ...dto,
+      points: dto.points ?? [],
+    });
   }
 
   async updateItem(id: string, dto: UpdateResumeItemDto) {
     await this.resumeItemBaseService.findOneOrFail({ id });
-    return this.resumeItemBaseService.update({ id }, dto as any);
+    return this.resumeItemBaseService.update({ id }, dto);
   }
 
   async removeItem(id: string) {

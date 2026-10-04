@@ -30,7 +30,7 @@ export type BlogPostMinAggregateOutputType = {
   title: string | null
   excerpt: string | null
   content: string | null
-  status: string | null
+  status: $Enums.BlogStatus | null
   coverImage: string | null
   publishedAt: Date | null
   createdAt: Date | null
@@ -44,7 +44,7 @@ export type BlogPostMaxAggregateOutputType = {
   title: string | null
   excerpt: string | null
   content: string | null
-  status: string | null
+  status: $Enums.BlogStatus | null
   coverImage: string | null
   publishedAt: Date | null
   createdAt: Date | null
@@ -189,7 +189,7 @@ export type BlogPostGroupByOutputType = {
   title: string
   excerpt: string | null
   content: string | null
-  status: string
+  status: $Enums.BlogStatus
   coverImage: string | null
   publishedAt: Date | null
   createdAt: Date
@@ -224,7 +224,7 @@ export type BlogPostWhereInput = {
   title?: Prisma.StringFilter<"BlogPost"> | string
   excerpt?: Prisma.StringNullableFilter<"BlogPost"> | string | null
   content?: Prisma.StringNullableFilter<"BlogPost"> | string | null
-  status?: Prisma.StringFilter<"BlogPost"> | string
+  status?: Prisma.EnumBlogStatusFilter<"BlogPost"> | $Enums.BlogStatus
   coverImage?: Prisma.StringNullableFilter<"BlogPost"> | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"BlogPost"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"BlogPost"> | Date | string
@@ -257,7 +257,7 @@ export type BlogPostWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"BlogPost"> | string
   excerpt?: Prisma.StringNullableFilter<"BlogPost"> | string | null
   content?: Prisma.StringNullableFilter<"BlogPost"> | string | null
-  status?: Prisma.StringFilter<"BlogPost"> | string
+  status?: Prisma.EnumBlogStatusFilter<"BlogPost"> | $Enums.BlogStatus
   coverImage?: Prisma.StringNullableFilter<"BlogPost"> | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"BlogPost"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"BlogPost"> | Date | string
@@ -292,7 +292,7 @@ export type BlogPostScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"BlogPost"> | string
   excerpt?: Prisma.StringNullableWithAggregatesFilter<"BlogPost"> | string | null
   content?: Prisma.StringNullableWithAggregatesFilter<"BlogPost"> | string | null
-  status?: Prisma.StringWithAggregatesFilter<"BlogPost"> | string
+  status?: Prisma.EnumBlogStatusWithAggregatesFilter<"BlogPost"> | $Enums.BlogStatus
   coverImage?: Prisma.StringNullableWithAggregatesFilter<"BlogPost"> | string | null
   publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"BlogPost"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"BlogPost"> | Date | string
@@ -306,7 +306,7 @@ export type BlogPostCreateInput = {
   title: string
   excerpt?: string | null
   content?: string | null
-  status?: string
+  status?: $Enums.BlogStatus
   coverImage?: string | null
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -321,7 +321,7 @@ export type BlogPostUncheckedCreateInput = {
   title: string
   excerpt?: string | null
   content?: string | null
-  status?: string
+  status?: $Enums.BlogStatus
   coverImage?: string | null
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -336,7 +336,7 @@ export type BlogPostUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -351,7 +351,7 @@ export type BlogPostUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -366,7 +366,7 @@ export type BlogPostCreateManyInput = {
   title: string
   excerpt?: string | null
   content?: string | null
-  status?: string
+  status?: $Enums.BlogStatus
   coverImage?: string | null
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -380,7 +380,7 @@ export type BlogPostUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -394,7 +394,7 @@ export type BlogPostUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -462,6 +462,10 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type EnumBlogStatusFieldUpdateOperationsInput = {
+  set?: $Enums.BlogStatus
+}
+
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
@@ -514,7 +518,7 @@ export type BlogPostCreateWithoutTagsInput = {
   title: string
   excerpt?: string | null
   content?: string | null
-  status?: string
+  status?: $Enums.BlogStatus
   coverImage?: string | null
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -528,7 +532,7 @@ export type BlogPostUncheckedCreateWithoutTagsInput = {
   title: string
   excerpt?: string | null
   content?: string | null
-  status?: string
+  status?: $Enums.BlogStatus
   coverImage?: string | null
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -566,7 +570,7 @@ export type BlogPostScalarWhereInput = {
   title?: Prisma.StringFilter<"BlogPost"> | string
   excerpt?: Prisma.StringNullableFilter<"BlogPost"> | string | null
   content?: Prisma.StringNullableFilter<"BlogPost"> | string | null
-  status?: Prisma.StringFilter<"BlogPost"> | string
+  status?: Prisma.EnumBlogStatusFilter<"BlogPost"> | $Enums.BlogStatus
   coverImage?: Prisma.StringNullableFilter<"BlogPost"> | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"BlogPost"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"BlogPost"> | Date | string
@@ -580,7 +584,7 @@ export type BlogPostUpdateWithoutTagsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -594,7 +598,7 @@ export type BlogPostUncheckedUpdateWithoutTagsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -608,7 +612,7 @@ export type BlogPostUncheckedUpdateManyWithoutTagsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -724,7 +728,7 @@ export type $BlogPostPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     title: string
     excerpt: string | null
     content: string | null
-    status: string
+    status: $Enums.BlogStatus
     coverImage: string | null
     publishedAt: Date | null
     createdAt: Date
@@ -1159,7 +1163,7 @@ export interface BlogPostFieldRefs {
   readonly title: Prisma.FieldRef<"BlogPost", 'String'>
   readonly excerpt: Prisma.FieldRef<"BlogPost", 'String'>
   readonly content: Prisma.FieldRef<"BlogPost", 'String'>
-  readonly status: Prisma.FieldRef<"BlogPost", 'String'>
+  readonly status: Prisma.FieldRef<"BlogPost", 'BlogStatus'>
   readonly coverImage: Prisma.FieldRef<"BlogPost", 'String'>
   readonly publishedAt: Prisma.FieldRef<"BlogPost", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"BlogPost", 'DateTime'>

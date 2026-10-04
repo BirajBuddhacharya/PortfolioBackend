@@ -4,6 +4,7 @@ import {
   RoleEnum,
   ResumeSectionEnum,
   ProjectStatus,
+  BlogStatus,
 } from '../generated/prisma/client.js';
 import { PrismaPg } from '@prisma/adapter-pg';
 import * as bcrypt from 'bcrypt';
@@ -249,7 +250,7 @@ When backends hold per-key state, you want the same key to land on the same back
 
 Start with round robin. Move to least connections when request costs diverge. Reach for consistent hashing only when backends are stateful — it is the most complex of the three and the easiest to get subtly wrong.`,
         tags: tagConnect(['go', 'systems', 'networking']),
-        status: 'published',
+        status: BlogStatus.ACTIVE,
         publishedAt: new Date(now - 20 * day),
       },
     }),
@@ -279,7 +280,7 @@ Authentication is where most of these projects stall. Citizens have inconsistent
 
 The projects that land share a pattern: narrow scope, one workflow end to end, and an offline fallback that staff genuinely use. The ones that stall try to digitise an entire department at once.`,
         tags: tagConnect(['policy', 'nepal', 'product']),
-        status: 'published',
+        status: BlogStatus.ACTIVE,
         publishedAt: new Date(now - 14 * day),
       },
     }),
@@ -317,7 +318,7 @@ Slots are where accuracy quietly dies. \`last quarter\` and \`Q3\` may mean the 
 
 The single biggest quality win was not a bigger model. It was tuning the confidence threshold and making the clarifying question good.`,
         tags: tagConnect(['ml', 'nlp']),
-        status: 'published',
+        status: BlogStatus.ACTIVE,
         publishedAt: new Date(now - 7 * day),
       },
     }),
@@ -360,7 +361,7 @@ A shared base service means a new model gets the behaviour for free, and there i
 
 If nothing ever restores the record and no audit trail needs it, delete the row. Soft deletes are a feature with ongoing cost, not a free safety net.`,
         tags: tagConnect(['prisma', 'nestjs', 'backend']),
-        status: 'published',
+        status: BlogStatus.ACTIVE,
         publishedAt: new Date(now - 2 * day),
       },
     }),
@@ -386,7 +387,7 @@ The honest list is short: find a thing, edit a thing, see what changed. Most of 
 
 Does the dashboard earn its place at all, or should landing go straight to the content list?`,
         tags: tagConnect(['product']),
-        status: 'draft',
+        status: BlogStatus.DRAFT,
         publishedAt: null,
       },
     }),

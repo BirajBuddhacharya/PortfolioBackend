@@ -40,7 +40,9 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new UnauthorizedException('No admin account linked to this Google account');
+      throw new UnauthorizedException(
+        'No admin account linked to this Google account',
+      );
     }
 
     const payload = { sub: user.id, email: user.email };

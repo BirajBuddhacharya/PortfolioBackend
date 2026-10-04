@@ -35,7 +35,12 @@ export class ProjectController {
     @Query() query: GetProjectsDto,
   ) {
     return new ResponseDto(
-      await this.projectService.findAll(pagination, query.search, query.status, query.tagId),
+      await this.projectService.findAll(
+        pagination,
+        query.search,
+        query.status,
+        query.tagId,
+      ),
     );
   }
 

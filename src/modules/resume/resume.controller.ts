@@ -54,18 +54,27 @@ export class ResumeController {
   @Post('items')
   @SetRoles(RoleEnum.ADMIN)
   async createItem(@Body() dto: CreateResumeItemDto) {
-    return new ResponseDto(await this.resumeService.createItem(dto), 'Resume item created');
+    return new ResponseDto(
+      await this.resumeService.createItem(dto),
+      'Resume item created',
+    );
   }
 
   @Patch('items/:id')
   @SetRoles(RoleEnum.ADMIN)
   async updateItem(@Param('id') id: string, @Body() dto: UpdateResumeItemDto) {
-    return new ResponseDto(await this.resumeService.updateItem(id, dto), 'Resume item updated');
+    return new ResponseDto(
+      await this.resumeService.updateItem(id, dto),
+      'Resume item updated',
+    );
   }
 
   @Delete('items/:id')
   @SetRoles(RoleEnum.ADMIN)
   async removeItem(@Param('id') id: string) {
-    return new ResponseDto(await this.resumeService.removeItem(id), 'Resume item deleted');
+    return new ResponseDto(
+      await this.resumeService.removeItem(id),
+      'Resume item deleted',
+    );
   }
 }

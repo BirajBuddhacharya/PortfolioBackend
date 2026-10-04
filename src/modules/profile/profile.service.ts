@@ -26,7 +26,7 @@ export class ProfileService {
   getProfile() {
     return this.prisma.profile.upsert({
       where: { id: 1 },
-      create: { id: 1, ...DEFAULTS } as Prisma.ProfileCreateInput,
+      create: { id: 1, ...DEFAULTS },
       update: {},
     });
   }
@@ -34,7 +34,7 @@ export class ProfileService {
   updateProfile(dto: UpdateProfileDto) {
     return this.prisma.profile.update({
       where: { id: 1 },
-      data: { ...dto } as Prisma.ProfileUpdateInput,
+      data: { ...dto },
     });
   }
 }

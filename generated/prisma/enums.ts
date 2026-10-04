@@ -9,6 +9,15 @@
 * 🟢 You can import this file directly.
 */
 
+export const BlogStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+} as const
+
+export type BlogStatus = (typeof BlogStatus)[keyof typeof BlogStatus]
+
+
 export const ContactStatusEnum = {
   UNREAD: 'UNREAD',
   READ: 'READ'

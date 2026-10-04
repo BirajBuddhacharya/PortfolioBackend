@@ -3,7 +3,12 @@ import { ApiQuery } from '@nestjs/swagger';
 
 export function RequireSwaggerPaginationSort() {
   return applyDecorators(
-    ApiQuery({ name: 'pagination', required: true, type: Boolean, example: true }),
+    ApiQuery({
+      name: 'pagination',
+      required: true,
+      type: Boolean,
+      example: true,
+    }),
     ApiQuery({ name: 'page', required: false, type: Number, example: 1 }),
     ApiQuery({ name: 'size', required: false, type: Number, example: 10 }),
     ApiQuery({

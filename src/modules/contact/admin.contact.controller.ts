@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ContactStatusEnum } from '../../../generated/prisma/client';
 import { ContactBaseService } from './common/contact.base.service';
@@ -31,13 +39,19 @@ export class AdminContactController {
   ) {
     await this.contactBaseService.findOneOrFail({ id });
     const data = dto.status ? { status: dto.status as ContactStatusEnum } : {};
-    return new ResponseDto(await this.contactBaseService.update({ id }, data), 'Message updated');
+    return new ResponseDto(
+      await this.contactBaseService.update({ id }, data),
+      'Message updated',
+    );
   }
 
   @Delete(':id')
   @SetRoles(RoleEnum.ADMIN)
   async remove(@Param('id', ParseIntPipe) id: number) {
     await this.contactBaseService.findOneOrFail({ id });
-    return new ResponseDto(await this.contactBaseService.softDelete({ id }), 'Message deleted');
+    return new ResponseDto(
+      await this.contactBaseService.softDelete({ id }),
+      'Message deleted',
+    );
   }
 }

@@ -37,7 +37,9 @@ export class UpdateProfileDto {
   @IsString({ each: true })
   ticker?: string[];
 
-  @ApiPropertyOptional({ description: 'Displayed in the footer and as the navbar avatar fallback' })
+  @ApiPropertyOptional({
+    description: 'Displayed in the footer and as the navbar avatar fallback',
+  })
   @IsOptional()
   @IsString()
   name?: string;
@@ -57,7 +59,9 @@ export class UpdateProfileDto {
   @IsString()
   ctaLabel?: string;
 
-  @ApiPropertyOptional({ description: 'Footer note shown after the auto-computed copyright year' })
+  @ApiPropertyOptional({
+    description: 'Footer note shown after the auto-computed copyright year',
+  })
   @IsOptional()
   @IsString()
   footerNote?: string;
@@ -67,7 +71,9 @@ export class UpdateProfileDto {
   @IsString()
   resumePdfUrl?: string;
 
-  @ApiPropertyOptional({ description: 'Send email when a contact message arrives' })
+  @ApiPropertyOptional({
+    description: 'Send email when a contact message arrives',
+  })
   @IsOptional()
   @IsBoolean()
   emailNotifications?: boolean;

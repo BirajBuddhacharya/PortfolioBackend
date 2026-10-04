@@ -12,7 +12,9 @@ export class ContactLinkService {
   }
 
   create(dto: CreateContactLinkDto) {
-    return this.prisma.contactLink.create({ data: { ...dto, order: dto.order ?? 0 } });
+    return this.prisma.contactLink.create({
+      data: { ...dto, order: dto.order ?? 0 },
+    });
   }
 
   async update(id: string, dto: UpdateContactLinkDto) {

@@ -93,7 +93,7 @@ export class UploadService {
       type: 'upload',
       public_ids: [publicId],
       target_format: 'zip',
-    } as any);
+    });
 
     let zip: Buffer;
     try {

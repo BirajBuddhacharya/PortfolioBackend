@@ -7,7 +7,11 @@ import { ContactBaseService } from './common/contact.base.service';
 import { ContactLinkService } from './contact-link.service';
 
 @Module({
-  controllers: [ContactController, AdminContactController, ContactLinkController],
+  controllers: [
+    ContactController,
+    AdminContactController,
+    ContactLinkController,
+  ],
   providers: [ContactService, ContactBaseService, ContactLinkService],
 })
 export class ContactModule {}

@@ -14,6 +14,7 @@ import { BlogService } from './blog.service';
 import { CreateBlogPostDto } from './dto/create-blog-post.dto';
 import { UpdateBlogPostDto } from './dto/update-blog-post.dto';
 import { SkipAuthCheck } from '../../decorators/public.decorator';
+import { BlogStatus } from 'generated/prisma/enums';
 import { SetRoles } from '../../decorators/roles.decorator';
 import { RoleEnum } from '../../enums/roles.enum';
 import { ResponseDto } from '../../common/response/response.dto';
@@ -41,7 +42,9 @@ export class BlogController {
     @Query('search') search?: string,
     @Query('status') status?: string,
   ) {
-    return new ResponseDto(await this.blogService.findAllAdmin(pagination, search, status));
+    return new ResponseDto(
+      await this.blogService.findAllAdmin(pagination, search, status),
+    );
   }
 
   @Get()
@@ -55,7 +58,8 @@ export class BlogController {
   @SkipAuthCheck()
   async findOne(@Param('slug') slug: string) {
     const post = await this.blogService.findBySlug(slug);
-    if (post.status !== 'published') throw new NotFoundException('Requested data not found');
+    if (post.status !== BlogStatus.ACTIVE)
+      throw new NotFoundException('Requested data not found');
     return new ResponseDto(post);
   }
 
@@ -68,7 +72,10 @@ export class BlogController {
   @Patch(':id')
   @SetRoles(RoleEnum.ADMIN)
   async update(@Param('id') id: string, @Body() dto: UpdateBlogPostDto) {
-    return new ResponseDto(await this.blogService.update(id, dto), 'Post updated');
+    return new ResponseDto(
+      await this.blogService.update(id, dto),
+      'Post updated',
+    );
   }
 
   @Delete(':id')

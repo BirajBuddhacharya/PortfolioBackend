@@ -22,6 +22,9 @@ export class ProfileController {
   @Patch()
   @SetRoles(RoleEnum.ADMIN)
   async updateProfile(@Body() dto: UpdateProfileDto) {
-    return new ResponseDto(await this.profileService.updateProfile(dto), 'Profile updated');
+    return new ResponseDto(
+      await this.profileService.updateProfile(dto),
+      'Profile updated',
+    );
   }
 }

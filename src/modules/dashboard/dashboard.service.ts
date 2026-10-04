@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { ProjectStatus } from 'generated/prisma/enums';
+import { BlogStatus, ProjectStatus } from 'generated/prisma/enums';
 
 @Injectable()
 export class DashboardService {
@@ -17,7 +17,7 @@ export class DashboardService {
     ] = await Promise.all([
       this.prisma.blogPost.count({ where: { deletedAt: null } }),
       this.prisma.blogPost.count({
-        where: { deletedAt: null, status: 'published' },
+        where: { deletedAt: null, status: BlogStatus.ACTIVE },
       }),
       this.prisma.project.count({ where: { deletedAt: null } }),
       this.prisma.project.count({

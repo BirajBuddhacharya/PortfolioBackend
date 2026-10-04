@@ -1,16 +1,22 @@
 // Owned by: src/modules/blog
 
+enum BlogStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+}
+
 model BlogPost {
-  id          String    @id @default(cuid())
-  slug        String    @unique
+  id          String     @id @default(cuid())
+  slug        String     @unique
   title       String
   excerpt     String?
-  content     String?   @db.Text
-  status      String    @default("draft") // draft | published
+  content     String?    @db.Text
+  status      BlogStatus @default(DRAFT)
   coverImage  String?
   publishedAt DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   deletedAt   DateTime?
   tags        Tag[]
 
