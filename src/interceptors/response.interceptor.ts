@@ -11,7 +11,7 @@ import { ResponseDto, ResponseType } from '../common/response/response.dto';
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const start = Date.now();
+    const start = performance.now();
 
     return next.handle().pipe(
       map((res: ResponseDto) => {
@@ -20,13 +20,15 @@ export class ResponseInterceptor implements NestInterceptor {
         }
 
         const status = context.switchToHttp().getResponse().statusCode;
+        const durationMs = performance.now() - start;
 
         return {
           status,
           timestamp: new Date().toISOString(),
           message: res?.message ?? 'Api successful',
           data: res?.data,
-          duration: `${Date.now() - start}ms`,
+          duration: `${durationMs.toFixed(2)}ms`,
+          durationMs: Math.round(durationMs * 100) / 100,
         };
       }),
     );

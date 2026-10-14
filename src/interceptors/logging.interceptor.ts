@@ -11,7 +11,7 @@ import { tap } from 'rxjs/operators';
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const now = Date.now();
+    const start = performance.now();
     const req = context.getArgs()[0];
 
     return next
@@ -19,7 +19,7 @@ export class LoggingInterceptor implements NestInterceptor {
       .pipe(
         tap(() =>
           Logger.log(
-            `====> [ ${req.method} ${req.url} - ${Date.now() - now}ms ]`,
+            `====> [ ${req.method} ${req.url} - ${(performance.now() - start).toFixed(2)}ms ]`,
           ),
         ),
       );

@@ -16,6 +16,7 @@ async function bootstrap() {
   app.enableCors({
     origin: origins.length === 1 && origins[0] === '*' ? '*' : origins,
     credentials: true,
+    maxAge: 7200, // cache preflight 2h (Chrome max)
   });
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ limit: '50mb', extended: true }));
