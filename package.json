@@ -25,6 +25,7 @@
     "db:makemigration": "prisma generate"
   },
   "dependencies": {
+    "@2toad/profanity": "^3.3.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",

@@ -14,6 +14,7 @@ import { SkipAuthCheck } from '../../decorators/public.decorator';
 import { SetRoles } from '../../decorators/roles.decorator';
 import { RoleEnum } from '../../enums/roles.enum';
 import { ResponseDto } from '../../common/response/response.dto';
+import { TagsOrderEnum } from './enum/tags-order.enum';
 
 @ApiTags('Tags')
 @ApiBearerAuth()
@@ -24,8 +25,12 @@ export class TagController {
   @Get()
   @SkipAuthCheck()
   @ApiQuery({ name: 'search', required: false })
-  async findAll(@Query('search') search?: string) {
-    return new ResponseDto(await this.tagService.findAll(search));
+  @ApiQuery({ name: 'orderBy', enum: TagsOrderEnum, required: false })
+  async findAll(
+    @Query('search') search?: string,
+    @Query('orderBy') orderBy?: TagsOrderEnum,
+  ) {
+    return new ResponseDto(await this.tagService.findAll(search, orderBy));
   }
 
   @Post()
