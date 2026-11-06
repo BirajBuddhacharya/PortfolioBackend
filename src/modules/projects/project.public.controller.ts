@@ -19,7 +19,7 @@ import { ResponseDto } from '../../common/response/response.dto';
 import { PaginationSortQuery } from '../../decorators/pagination.decorator';
 import { RequireSwaggerPaginationSort } from '../../decorators/swagger-pagination.decorator';
 import { PaginationDto } from '../../common/dto/pagination.dto';
-import { GetProjectsDto } from './dto/get-projects.dto';
+import { PublicGetProjectsDto } from './dto/get-projects.dto';
 import { ProjectStatus } from 'generated/prisma/enums';
 
 @ApiTags('Projects')
@@ -33,7 +33,7 @@ export class PublicProjectController {
   @RequireSwaggerPaginationSort()
   async findAll(
     @PaginationSortQuery() pagination: PaginationDto,
-    @Query() query: GetProjectsDto,
+    @Query() query: PublicGetProjectsDto,
   ) {
     return new ResponseDto(
       await this.projectService.findAll(

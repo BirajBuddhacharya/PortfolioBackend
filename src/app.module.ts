@@ -51,6 +51,9 @@ import appConfig from './config/app.config';
         transform: true,
         transformOptions: { enableImplicitConversion: true },
         whitelist: true,
+        // Unknown properties must fail loudly instead of being silently
+        // discarded (a future allowlist refactor must not look like success).
+        forbidNonWhitelisted: true,
       }),
     },
   ],

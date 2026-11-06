@@ -485,7 +485,9 @@ All decorators are direct port from reference with TypeORM references removed (e
 export default registerAs('app', () => ({
   port: parseInt(process.env.APP_PORT, 10) || 3000,
   jwtSecretKey: process.env.JWT_SECRET,
-  jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
+  jwtRefreshSecret: process.env.JWT_REFRESH_SECRET,
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN || '15m',
+  jwtRefreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '30d',
   swaggerUser: process.env.SWAGGER_USER || 'admin',
   swaggerPassword: process.env.SWAGGER_PASSWORD || 'admin',
   corsOrigins: process.env.CORS_ORIGINS?.split(',') || ['*'],
@@ -643,7 +645,9 @@ NODE_ENV=development
 
 # JWT
 JWT_SECRET=your-super-secret-key
-JWT_EXPIRES_IN=7d
+JWT_REFRESH_SECRET=a-different-super-secret-key
+JWT_EXPIRES_IN=15m
+JWT_REFRESH_EXPIRES_IN=30d
 
 # Database
 DATABASE_URL=postgresql://user:password@localhost:5432/portfolio_db

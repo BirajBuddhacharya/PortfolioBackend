@@ -673,34 +673,6 @@ Cut initial screening time by **60%** across 500+ resumes processed. Recruiters 
   console.log('Projects seeded');
 }
 
-async function seedDashboardSnapshot() {
-  await prisma.dashboardSnapshot.upsert({
-    where: { id: 1 },
-    create: {
-      id: 1,
-      chartBars: [32, 41, 28, 55, 60, 47, 38, 52, 65, 58, 44, 61, 70, 66],
-      topPages: [
-        { path: '/', views: 1240, pct: 38 },
-        { path: '/projects', views: 860, pct: 26 },
-        { path: '/blog', views: 540, pct: 16 },
-        { path: '/about', views: 410, pct: 12 },
-        { path: '/contact', views: 260, pct: 8 },
-      ],
-      activity: [
-        { text: 'New contact message received', time: '2h ago' },
-        {
-          text: 'Blog post "Load balancing strategies in Go" published',
-          time: '1d ago',
-        },
-        { text: 'Project "RiskVision" updated', time: '3d ago' },
-        { text: 'New contact message received', time: '5d ago' },
-      ],
-    },
-    update: {},
-  });
-  console.log('Dashboard snapshot seeded');
-}
-
 async function main() {
   await seedAdmin();
 
@@ -714,7 +686,6 @@ async function main() {
   await seedResumeItems();
   await seedBlogPosts();
   await seedProjects();
-  await seedDashboardSnapshot();
 }
 
 main()

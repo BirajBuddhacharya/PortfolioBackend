@@ -10,7 +10,6 @@ import {
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { TagService } from './tag.service';
 import { CreateTagDto } from './dto/create-tag.dto';
-import { SkipAuthCheck } from '../../decorators/public.decorator';
 import { SetRoles } from '../../decorators/roles.decorator';
 import { RoleEnum } from '../../enums/roles.enum';
 import { ResponseDto } from '../../common/response/response.dto';
@@ -19,11 +18,11 @@ import { TagsOrderEnum } from './enum/tags-order.enum';
 @ApiTags('Tags')
 @ApiBearerAuth()
 @Controller('tags')
-export class TagController {
+export class AdminTagController {
   constructor(private tagService: TagService) {}
 
   @Get()
-  @SkipAuthCheck()
+  @SetRoles(RoleEnum.ADMIN)
   @ApiQuery({ name: 'search', required: false })
   @ApiQuery({ name: 'orderBy', enum: TagsOrderEnum, required: false })
   async findAll(
@@ -36,13 +35,10 @@ export class TagController {
   @Post()
   @SetRoles(RoleEnum.ADMIN)
   async create(@Body() dto: CreateTagDto) {
-    const start = performance.now();
     const response = new ResponseDto(
       await this.tagService.create(dto),
       'Tag created',
     );
-    const durationMs = performance.now() - start;
-    console.log(`create tag took ${durationMs.toFixed(2)}ms`);
     return response;
   }
 

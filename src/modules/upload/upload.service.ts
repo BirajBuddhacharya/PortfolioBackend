@@ -11,6 +11,42 @@ import axios from 'axios';
 import type { Response } from 'express';
 
 const EOCD_SIGNATURE = Buffer.from([0x50, 0x4b, 0x05, 0x06]);
+const PDF_MAGIC = Buffer.from('%PDF-');
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+const MAX_PDF_BYTES = 10 * 1024 * 1024;
+
+const IMAGE_SIGNATURES: Array<{
+  mime: string;
+  matches: (buffer: Buffer) => boolean;
+}> = [
+  {
+    mime: 'image/jpeg',
+    matches: (b) =>
+      b.length >= 3 && b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff,
+  },
+  {
+    mime: 'image/png',
+    matches: (b) =>
+      b.length >= 8 &&
+      b.subarray(0, 8).equals(
+        Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
+      ),
+  },
+  {
+    mime: 'image/gif',
+    matches: (b) =>
+      b.length >= 6 &&
+      (b.subarray(0, 6).toString('ascii') === 'GIF87a' ||
+        b.subarray(0, 6).toString('ascii') === 'GIF89a'),
+  },
+  {
+    mime: 'image/webp',
+    matches: (b) =>
+      b.length >= 12 &&
+      b.subarray(0, 4).toString('ascii') === 'RIFF' &&
+      b.subarray(8, 12).toString('ascii') === 'WEBP',
+  },
+];
 
 @Injectable()
 export class UploadService {
@@ -48,9 +84,20 @@ export class UploadService {
   }
 
   async uploadImage(file: Express.Multer.File): Promise<UploadApiResponse> {
-    if (!file.mimetype.startsWith('image/')) {
-      throw new BadRequestException('File must be an image');
+    if (!file.buffer?.length) {
+      throw new BadRequestException('Invalid image file');
     }
+    if (file.buffer.length > MAX_IMAGE_BYTES) {
+      throw new BadRequestException('Image file is too large (max 10 MB)');
+    }
+
+    const signature = IMAGE_SIGNATURES.find((entry) =>
+      entry.matches(file.buffer),
+    );
+    if (!signature || file.mimetype !== signature.mime) {
+      throw new BadRequestException('Invalid image file');
+    }
+
     return this.uploadStream(file.buffer, {
       folder: 'portfolio/images',
       resource_type: 'image',
@@ -62,6 +109,21 @@ export class UploadService {
     if (file.mimetype !== 'application/pdf') {
       throw new BadRequestException('File must be a PDF');
     }
+    if (!file.buffer?.length || file.buffer.length > MAX_PDF_BYTES) {
+      throw new BadRequestException(
+        'PDF is empty or too large (max 10 MB)',
+      );
+    }
+
+    // MIME types are attacker-controlled; verify the actual file signature and
+    // trailer before the bytes reach Cloudinary's public CDN.
+    if (!file.buffer.subarray(0, PDF_MAGIC.length).equals(PDF_MAGIC)) {
+      throw new BadRequestException('Invalid PDF file');
+    }
+    if (file.buffer.lastIndexOf(Buffer.from('%%EOF')) === -1) {
+      throw new BadRequestException('Invalid PDF file');
+    }
+
     return this.uploadStream(file.buffer, {
       folder: 'portfolio/resumes',
       resource_type: 'raw',
@@ -112,7 +174,10 @@ export class UploadService {
     const pdf = extractSoleZipEntry(zip);
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Length', String(pdf.length));
-    res.setHeader('Content-Disposition', 'inline; filename="resume.pdf"');
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename="Biraj-Buddhacharya-Resume.pdf"',
+    );
     res.end(pdf);
   }
 }

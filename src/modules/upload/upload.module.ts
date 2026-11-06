@@ -6,7 +6,13 @@ import { UploadService } from './upload.service';
 import { GalleryModule } from '../gallery/gallery.module';
 
 @Module({
-  imports: [MulterModule.register({ storage: memoryStorage() }), GalleryModule],
+  imports: [
+    MulterModule.register({
+      storage: memoryStorage(),
+      limits: { fileSize: 10 * 1024 * 1024, files: 1 },
+    }),
+    GalleryModule,
+  ],
   controllers: [UploadController],
   providers: [UploadService],
   exports: [UploadService],

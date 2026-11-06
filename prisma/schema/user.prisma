@@ -1,14 +1,17 @@
 // Owned by: src/modules/user
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  password  String
-  name      String?
-  role      RoleEnum  @default(USER)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  password     String
+  name         String?
+  role         RoleEnum  @default(USER)
+  // Incremented on logout/password change. Every JWT carries the value it was
+  // issued with, so bumping this revokes all outstanding tokens for the user.
+  tokenVersion Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
 
   @@map("users")
 }

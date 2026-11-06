@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  NotFoundException,
   Param,
   Patch,
   Post,
@@ -13,8 +12,6 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { BlogService } from './blog.service';
 import { CreateBlogPostDto } from './dto/create-blog-post.dto';
 import { UpdateBlogPostDto } from './dto/update-blog-post.dto';
-import { SkipAuthCheck } from '../../decorators/public.decorator';
-import { BlogStatus } from 'generated/prisma/enums';
 import { SetRoles } from '../../decorators/roles.decorator';
 import { RoleEnum } from '../../enums/roles.enum';
 import { ResponseDto } from '../../common/response/response.dto';
@@ -25,11 +22,11 @@ import { PaginationDto } from '../../common/dto/pagination.dto';
 @ApiTags('Blog')
 @ApiBearerAuth()
 @Controller('blog')
-export class BlogController {
+export class AdminBlogController {
   constructor(private blogService: BlogService) {}
 
   @Get('tags')
-  @SkipAuthCheck()
+  @SetRoles(RoleEnum.ADMIN)
   async findTags() {
     return new ResponseDto(await this.blogService.findTags());
   }
@@ -48,19 +45,16 @@ export class BlogController {
   }
 
   @Get()
-  @SkipAuthCheck()
+  @SetRoles(RoleEnum.ADMIN)
   @RequireSwaggerPaginationSort()
   async findPublished(@PaginationSortQuery() pagination: PaginationDto) {
     return new ResponseDto(await this.blogService.findPublished(pagination));
   }
 
   @Get(':slug')
-  @SkipAuthCheck()
+  @SetRoles(RoleEnum.ADMIN)
   async findOne(@Param('slug') slug: string) {
-    const post = await this.blogService.findBySlug(slug);
-    if (post.status !== BlogStatus.ACTIVE)
-      throw new NotFoundException('Requested data not found');
-    return new ResponseDto(post);
+    return new ResponseDto(await this.blogService.findBySlug(slug));
   }
 
   @Post()

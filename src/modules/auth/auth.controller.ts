@@ -5,10 +5,12 @@ import { ConfigService } from '@nestjs/config';
 import type { Response } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { SkipAuthCheck } from '../../decorators/public.decorator';
 import { CurrentUser } from '../../decorators/current-user.decorator';
 import { ResponseDto } from '../../common/response/response.dto';
 import { AllConfig } from '../../config/config.type';
+import type { AuthUser } from '../user/user.select';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -27,9 +29,24 @@ export class AuthController {
     );
   }
 
+  @Post('refresh')
+  @SkipAuthCheck()
+  async refresh(@Body() dto: RefreshTokenDto) {
+    return new ResponseDto(
+      await this.authService.refresh(dto.refreshToken),
+      'Token refreshed',
+    );
+  }
+
+  @Post('logout')
+  @ApiBearerAuth()
+  async logout(@CurrentUser() user: AuthUser) {
+    return new ResponseDto(await this.authService.logout(user.id), 'Logged out');
+  }
+
   @Get('me')
   @ApiBearerAuth()
-  me(@CurrentUser() user: any) {
+  me(@CurrentUser() user: AuthUser) {
     return new ResponseDto(this.authService.me(user));
   }
 
@@ -42,10 +59,15 @@ export class AuthController {
   @SkipAuthCheck()
   @UseGuards(AuthGuard('google'))
   async googleCallback(@CurrentUser() user: any, @Res() res: Response) {
-    const { accessToken } = await this.authService.googleLogin(user);
+    const { accessToken, refreshToken } =
+      await this.authService.googleLogin(user);
     const frontendUrl = this.configService.get('app', {
       infer: true,
     })!.frontendUrl;
-    res.redirect(`${frontendUrl}/admin/login?token=${accessToken}`);
+    const params = new URLSearchParams({
+      token: accessToken,
+      refreshToken,
+    });
+    res.redirect(`${frontendUrl}/admin/login?${params.toString()}`);
   }
 }

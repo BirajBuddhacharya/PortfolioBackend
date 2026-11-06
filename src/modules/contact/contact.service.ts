@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { Resend } from 'resend';
 import { ContactBaseService } from './common/contact.base.service';
 import { CreateContactDto } from './dto/create-contact.dto';
-import { AllConfig } from 'src/config/config.type';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { AllConfig } from '../../config/config.type';
+import { PrismaService } from '../../prisma/prisma.service';
 
 const SITEVERIFY_URL =
   'https://challenges.cloudflare.com/turnstile/v0/siteverify';

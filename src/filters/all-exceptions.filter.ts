@@ -74,6 +74,15 @@ export class AllExceptionsFilter implements ExceptionFilter {
       message = message.message;
     }
 
+    // V4 — Nest/Express default 404s echo the router ("Cannot GET /x").
+    if (
+      status === HttpStatus.NOT_FOUND &&
+      typeof message === 'string' &&
+      message.startsWith('Cannot ')
+    ) {
+      message = 'Route not found';
+    }
+
     response.status(status).json({
       status,
       timestamp: new Date().toISOString(),

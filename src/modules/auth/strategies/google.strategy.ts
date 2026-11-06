@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, VerifyCallback, Profile } from 'passport-google-oauth20';
 import { AllConfig } from '../../../config/config.type';
+import { SignedCookieOAuthStateStore } from './oauth-state.store';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
@@ -13,7 +14,15 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       clientSecret: appCfg.googleClientSecret,
       callbackURL: appCfg.googleCallbackUrl,
       scope: ['email', 'profile'],
-    });
+      // CSRF state + PKCE (S256). The verifier is held in a signed HttpOnly
+      // cookie, so the callback works across stateless serverless instances.
+      state: true,
+      pkce: true,
+      store: new SignedCookieOAuthStateStore(
+        appCfg.jwtSecretKey,
+        process.env.NODE_ENV === 'production',
+      ),
+    } as any);
   }
 
   validate(

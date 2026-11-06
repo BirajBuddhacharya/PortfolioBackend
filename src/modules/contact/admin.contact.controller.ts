@@ -6,17 +6,20 @@ import {
   Param,
   ParseIntPipe,
   Patch,
+  Query,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ContactStatusEnum } from '../../../generated/prisma/client';
 import { ContactBaseService } from './common/contact.base.service';
 import { UpdateContactStatusDto } from './dto/update-contact-status.dto';
+import { GetContactsDto } from './dto/get-contacts.dto';
 import { SetRoles } from '../../decorators/roles.decorator';
 import { RoleEnum } from '../../enums/roles.enum';
 import { ResponseDto } from '../../common/response/response.dto';
 import { PaginationSortQuery } from '../../decorators/pagination.decorator';
 import { RequireSwaggerPaginationSort } from '../../decorators/swagger-pagination.decorator';
 import { PaginationDto } from '../../common/dto/pagination.dto';
+import { Prisma } from './entities/contact.entity';
 
 @ApiTags('Contact')
 @ApiBearerAuth()
@@ -27,8 +30,27 @@ export class AdminContactController {
   @Get()
   @SetRoles(RoleEnum.ADMIN)
   @RequireSwaggerPaginationSort()
-  async findAll(@PaginationSortQuery() pagination: PaginationDto) {
-    return new ResponseDto(await this.contactBaseService.find({}, pagination));
+  async findAll(
+    @PaginationSortQuery() pagination: PaginationDto,
+    @Query() query: GetContactsDto,
+  ) {
+    const where: Prisma.ContactWhereInput = {
+      ...(query.email
+        ? { email: { equals: query.email, mode: 'insensitive' } }
+        : {}),
+      ...(query.status ? { status: query.status as ContactStatusEnum } : {}),
+      ...(query.search
+        ? {
+            OR: [
+              { name: { contains: query.search, mode: 'insensitive' } },
+              { email: { contains: query.search, mode: 'insensitive' } },
+              { subject: { contains: query.search, mode: 'insensitive' } },
+              { message: { contains: query.search, mode: 'insensitive' } },
+            ],
+          }
+        : {}),
+    };
+    return new ResponseDto(await this.contactBaseService.find(where, pagination));
   }
 
   @Patch(':id')

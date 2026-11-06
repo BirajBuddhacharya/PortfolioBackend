@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { BaseService } from 'src/common/service/base.service';
+import { BaseService } from '../../../common/service/base.service';
 import { Contact, Prisma } from '../entities/contact.entity';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 
 @Injectable()
 export class ContactBaseService extends BaseService<

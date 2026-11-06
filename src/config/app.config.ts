@@ -3,7 +3,9 @@ import { registerAs } from '@nestjs/config';
 export interface AppConfig {
   port: number;
   jwtSecretKey: string;
+  jwtRefreshSecret: string;
   jwtExpiresIn: string;
+  jwtRefreshExpiresIn: string;
   swaggerUser: string;
   swaggerPassword: string;
   corsOrigins: string[];
@@ -20,7 +22,13 @@ export interface AppConfig {
 export default registerAs('app', () => ({
   port: parseInt(process.env.APP_PORT ?? '3000', 10),
   jwtSecretKey: process.env.JWT_SECRET ?? 'change-me-in-production',
-  jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? '7d',
+  // Refresh tokens are signed with a separate secret so an access token can
+  // never be replayed against the refresh endpoint (and vice versa).
+  jwtRefreshSecret:
+    process.env.JWT_REFRESH_SECRET ??
+    `${process.env.JWT_SECRET ?? 'change-me-in-production'}:refresh`,
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? '15m',
+  jwtRefreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN ?? '30d',
   swaggerUser: process.env.SWAGGER_USER ?? 'admin',
   swaggerPassword: process.env.SWAGGER_PASSWORD ?? 'admin',
   corsOrigins: process.env.CORS_ORIGINS?.split(',') ?? ['*'],

@@ -1,7 +1,7 @@
 // Owned by: src/modules/dashboard
-// Singleton row (id always 1) of seeded sample analytics — there is no
-// real pageview tracking; this only backs the admin dashboard chart/
-// top-pages/activity widgets with clearly-seeded demo numbers.
+// Legacy table from the original seeded demo dashboard. The API no longer
+// reads or writes it — /dashboard/snapshot is computed from real content rows.
+// Kept only so existing databases do not need a destructive drop migration.
 
 model DashboardSnapshot {
   id        Int      @id @default(1)

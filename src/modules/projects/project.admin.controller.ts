@@ -12,7 +12,6 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { SkipAuthCheck } from '../../decorators/public.decorator';
 import { SetRoles } from '../../decorators/roles.decorator';
 import { RoleEnum } from '../../enums/roles.enum';
 import { ResponseDto } from '../../common/response/response.dto';
@@ -24,11 +23,11 @@ import { GetProjectsDto } from './dto/get-projects.dto';
 @ApiTags('Projects')
 @ApiBearerAuth()
 @Controller('projects')
-export class ProjectController {
+export class AdminProjectController {
   constructor(private projectService: ProjectService) {}
 
   @Get()
-  @SkipAuthCheck()
+  @SetRoles(RoleEnum.ADMIN)
   @RequireSwaggerPaginationSort()
   async findAll(
     @PaginationSortQuery() pagination: PaginationDto,
@@ -45,7 +44,7 @@ export class ProjectController {
   }
 
   @Get(':slug')
-  @SkipAuthCheck()
+  @SetRoles(RoleEnum.ADMIN)
   async findOne(@Param('slug') slug: string) {
     return new ResponseDto(await this.projectService.findBySlug(slug));
   }

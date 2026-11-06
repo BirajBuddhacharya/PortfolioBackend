@@ -10,7 +10,9 @@ export class ResponseDto {
 
   constructor(data?: any, message?: string, responseType?: ResponseType) {
     if (data !== undefined) this.data = data;
-    if (data?.message || message) this.message = message ?? data?.message;
+    // Never copy `data.message` into the envelope: on the public contact route
+    // that would echo the visitor's own message back to them (V5).
+    if (message) this.message = message;
     if (responseType) this.responseType = responseType;
   }
 }
