@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
+import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
@@ -22,6 +30,8 @@ export class AuthController {
 
   @Post('login')
   @SkipAuthCheck()
+  @UseGuards(ThrottlerGuard)
+  @Throttle({ login: { limit: 5, ttl: 60_000 } })
   async login(@Body() dto: LoginDto) {
     return new ResponseDto(
       await this.authService.login(dto),
@@ -31,6 +41,8 @@ export class AuthController {
 
   @Post('refresh')
   @SkipAuthCheck()
+  @UseGuards(ThrottlerGuard)
+  @Throttle({ token: { limit: 20, ttl: 60_000 } })
   async refresh(@Body() dto: RefreshTokenDto) {
     return new ResponseDto(
       await this.authService.refresh(dto.refreshToken),
