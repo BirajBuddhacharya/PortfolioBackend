@@ -5,6 +5,7 @@ import {
   ServiceUnavailableException,
 } from '@nestjs/common';
 import { BetaAnalyticsDataClient, protos } from '@google-analytics/data';
+import { GoogleAuth } from 'google-auth-library';
 import { ConfigService } from '@nestjs/config';
 import { AllConfig } from '../../config/config.type';
 import type {
@@ -346,9 +347,11 @@ export class GaService {
         if (parsed.private_key) {
           parsed.private_key = parsed.private_key.replace(/\\n/g, '\n');
         }
-        this.client = new BetaAnalyticsDataClient({
+        // `credentials` is deprecated; construct a GoogleAuth explicitly.
+        const auth = new GoogleAuth({
           credentials: parsed as Record<string, unknown>,
         });
+        this.client = new BetaAnalyticsDataClient({ auth });
       } catch (error) {
         this.logger.error(
           'GA_CREDENTIALS could not be parsed',
