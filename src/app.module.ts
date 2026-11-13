@@ -20,6 +20,7 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { GalleryModule } from './modules/gallery/gallery.module';
 import { TagModule } from './modules/tags/tag.module';
+import { GaModule } from './modules/ga/ga.module';
 import appConfig from './config/app.config';
 
 @Module({
@@ -37,6 +38,7 @@ import appConfig from './config/app.config';
     UploadModule,
     GalleryModule,
     TagModule,
+    GaModule,
   ],
   controllers: [AppController],
   providers: [

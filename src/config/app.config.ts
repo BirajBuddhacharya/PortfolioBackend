@@ -17,6 +17,7 @@ export interface AppConfig {
   ignoreTurnstile: boolean;
   resendApiKey: string;
   contactEmail: string;
+  gaPropertyId: string;
 }
 
 export default registerAs('app', () => ({
@@ -42,4 +43,5 @@ export default registerAs('app', () => ({
     'http://localhost:3007/api/v1/auth/google/callback',
   frontendUrl: process.env.FRONTEND_URL ?? 'http://localhost:3000',
   ignoreTurnstile: process.env.IGNORE_TURNSTILE?.toLowerCase() === 'true',
+  gaPropertyId: process.env.GA_PROPERTY_ID ?? '',
 }));
