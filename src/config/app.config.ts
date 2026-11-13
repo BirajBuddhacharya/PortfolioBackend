@@ -18,6 +18,8 @@ export interface AppConfig {
   resendApiKey: string;
   contactEmail: string;
   gaPropertyId: string;
+  gaKeyFile: string;
+  gaCredentials: string;
 }
 
 export default registerAs('app', () => ({
@@ -44,4 +46,8 @@ export default registerAs('app', () => ({
   frontendUrl: process.env.FRONTEND_URL ?? 'http://localhost:3000',
   ignoreTurnstile: process.env.IGNORE_TURNSTILE?.toLowerCase() === 'true',
   gaPropertyId: process.env.GA_PROPERTY_ID ?? '',
+  // Either point at a service-account JSON file, or provide the JSON itself
+  // (raw or base64-encoded) so the key never has to live on disk in prod.
+  gaKeyFile: process.env.GA_KEY_FILE ?? 'GAServiceKey.json',
+  gaCredentials: process.env.GA_CREDENTIALS ?? '',
 }));
