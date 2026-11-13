@@ -77,4 +77,9 @@ export class UpdateProfileDto {
   @IsOptional()
   @IsBoolean()
   emailNotifications?: boolean;
+
+  @ApiPropertyOptional({ description: 'Description for the hero section' })
+  @IsOptional()
+  @IsString()
+  heroDescription?: string;
 }

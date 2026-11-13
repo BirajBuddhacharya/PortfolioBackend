@@ -18,6 +18,7 @@ model Profile {
   footerNote         String?
   resumePdfUrl       String?
   emailNotifications Boolean @default(true)
+  heroDescription    String?
 
   updatedAt DateTime @updatedAt
 

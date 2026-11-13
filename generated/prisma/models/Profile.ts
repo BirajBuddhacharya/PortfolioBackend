@@ -45,6 +45,7 @@ export type ProfileMinAggregateOutputType = {
   footerNote: string | null
   resumePdfUrl: string | null
   emailNotifications: boolean | null
+  heroDescription: string | null
   updatedAt: Date | null
 }
 
@@ -59,6 +60,7 @@ export type ProfileMaxAggregateOutputType = {
   footerNote: string | null
   resumePdfUrl: string | null
   emailNotifications: boolean | null
+  heroDescription: string | null
   updatedAt: Date | null
 }
 
@@ -77,6 +79,7 @@ export type ProfileCountAggregateOutputType = {
   footerNote: number
   resumePdfUrl: number
   emailNotifications: number
+  heroDescription: number
   updatedAt: number
   _all: number
 }
@@ -101,6 +104,7 @@ export type ProfileMinAggregateInputType = {
   footerNote?: true
   resumePdfUrl?: true
   emailNotifications?: true
+  heroDescription?: true
   updatedAt?: true
 }
 
@@ -115,6 +119,7 @@ export type ProfileMaxAggregateInputType = {
   footerNote?: true
   resumePdfUrl?: true
   emailNotifications?: true
+  heroDescription?: true
   updatedAt?: true
 }
 
@@ -133,6 +138,7 @@ export type ProfileCountAggregateInputType = {
   footerNote?: true
   resumePdfUrl?: true
   emailNotifications?: true
+  heroDescription?: true
   updatedAt?: true
   _all?: true
 }
@@ -238,6 +244,7 @@ export type ProfileGroupByOutputType = {
   footerNote: string | null
   resumePdfUrl: string | null
   emailNotifications: boolean
+  heroDescription: string | null
   updatedAt: Date
   _count: ProfileCountAggregateOutputType | null
   _avg: ProfileAvgAggregateOutputType | null
@@ -279,6 +286,7 @@ export type ProfileWhereInput = {
   footerNote?: Prisma.StringNullableFilter<"Profile"> | string | null
   resumePdfUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   emailNotifications?: Prisma.BoolFilter<"Profile"> | boolean
+  heroDescription?: Prisma.StringNullableFilter<"Profile"> | string | null
   updatedAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
 }
 
@@ -297,6 +305,7 @@ export type ProfileOrderByWithRelationInput = {
   footerNote?: Prisma.SortOrderInput | Prisma.SortOrder
   resumePdfUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   emailNotifications?: Prisma.SortOrder
+  heroDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -318,6 +327,7 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   footerNote?: Prisma.StringNullableFilter<"Profile"> | string | null
   resumePdfUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   emailNotifications?: Prisma.BoolFilter<"Profile"> | boolean
+  heroDescription?: Prisma.StringNullableFilter<"Profile"> | string | null
   updatedAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
 }, "id">
 
@@ -336,6 +346,7 @@ export type ProfileOrderByWithAggregationInput = {
   footerNote?: Prisma.SortOrderInput | Prisma.SortOrder
   resumePdfUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   emailNotifications?: Prisma.SortOrder
+  heroDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProfileCountOrderByAggregateInput
   _avg?: Prisma.ProfileAvgOrderByAggregateInput
@@ -362,6 +373,7 @@ export type ProfileScalarWhereWithAggregatesInput = {
   footerNote?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   resumePdfUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   emailNotifications?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
+  heroDescription?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Profile"> | Date | string
 }
 
@@ -380,6 +392,7 @@ export type ProfileCreateInput = {
   footerNote?: string | null
   resumePdfUrl?: string | null
   emailNotifications?: boolean
+  heroDescription?: string | null
   updatedAt?: Date | string
 }
 
@@ -398,6 +411,7 @@ export type ProfileUncheckedCreateInput = {
   footerNote?: string | null
   resumePdfUrl?: string | null
   emailNotifications?: boolean
+  heroDescription?: string | null
   updatedAt?: Date | string
 }
 
@@ -416,6 +430,7 @@ export type ProfileUpdateInput = {
   footerNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailNotifications?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  heroDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -434,6 +449,7 @@ export type ProfileUncheckedUpdateInput = {
   footerNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailNotifications?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  heroDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -452,6 +468,7 @@ export type ProfileCreateManyInput = {
   footerNote?: string | null
   resumePdfUrl?: string | null
   emailNotifications?: boolean
+  heroDescription?: string | null
   updatedAt?: Date | string
 }
 
@@ -470,6 +487,7 @@ export type ProfileUpdateManyMutationInput = {
   footerNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailNotifications?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  heroDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -488,6 +506,7 @@ export type ProfileUncheckedUpdateManyInput = {
   footerNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumePdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailNotifications?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  heroDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -514,6 +533,7 @@ export type ProfileCountOrderByAggregateInput = {
   footerNote?: Prisma.SortOrder
   resumePdfUrl?: Prisma.SortOrder
   emailNotifications?: Prisma.SortOrder
+  heroDescription?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -532,6 +552,7 @@ export type ProfileMaxOrderByAggregateInput = {
   footerNote?: Prisma.SortOrder
   resumePdfUrl?: Prisma.SortOrder
   emailNotifications?: Prisma.SortOrder
+  heroDescription?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -546,6 +567,7 @@ export type ProfileMinOrderByAggregateInput = {
   footerNote?: Prisma.SortOrder
   resumePdfUrl?: Prisma.SortOrder
   emailNotifications?: Prisma.SortOrder
+  heroDescription?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -583,6 +605,7 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   footerNote?: boolean
   resumePdfUrl?: boolean
   emailNotifications?: boolean
+  heroDescription?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["profile"]>
 
@@ -601,6 +624,7 @@ export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   footerNote?: boolean
   resumePdfUrl?: boolean
   emailNotifications?: boolean
+  heroDescription?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["profile"]>
 
@@ -619,6 +643,7 @@ export type ProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   footerNote?: boolean
   resumePdfUrl?: boolean
   emailNotifications?: boolean
+  heroDescription?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["profile"]>
 
@@ -637,10 +662,11 @@ export type ProfileSelectScalar = {
   footerNote?: boolean
   resumePdfUrl?: boolean
   emailNotifications?: boolean
+  heroDescription?: boolean
   updatedAt?: boolean
 }
 
-export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "headline" | "coverImage" | "paragraphs" | "facts" | "stats" | "ticker" | "name" | "avatarImage" | "location" | "ctaLabel" | "footerNote" | "resumePdfUrl" | "emailNotifications" | "updatedAt", ExtArgs["result"]["profile"]>
+export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "headline" | "coverImage" | "paragraphs" | "facts" | "stats" | "ticker" | "name" | "avatarImage" | "location" | "ctaLabel" | "footerNote" | "resumePdfUrl" | "emailNotifications" | "heroDescription" | "updatedAt", ExtArgs["result"]["profile"]>
 
 export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Profile"
@@ -660,6 +686,7 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     footerNote: string | null
     resumePdfUrl: string | null
     emailNotifications: boolean
+    heroDescription: string | null
     updatedAt: Date
   }, ExtArgs["result"]["profile"]>
   composites: {}
@@ -1098,6 +1125,7 @@ export interface ProfileFieldRefs {
   readonly footerNote: Prisma.FieldRef<"Profile", 'String'>
   readonly resumePdfUrl: Prisma.FieldRef<"Profile", 'String'>
   readonly emailNotifications: Prisma.FieldRef<"Profile", 'Boolean'>
+  readonly heroDescription: Prisma.FieldRef<"Profile", 'String'>
   readonly updatedAt: Prisma.FieldRef<"Profile", 'DateTime'>
 }
     
